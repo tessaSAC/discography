@@ -1,28 +1,59 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+  <div class="allGames">
+    <VRating gameTitle="Heavy Rain" hypes="214" rating="92.4" />
   </div>
+  <VSingleGame />
+</div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import VRating from './components/VRating'
+import VSingleGame from './components/VSingleGame'
 
 export default {
-  name: "app",
+  name: 'app',
+
   components: {
-    HelloWorld
+    VRating,
+    VSingleGame,
+  },
+
+  data: _ => ({
+    searchTerm: '',
+
+    sortByMap: {
+      gameTitle: 'Game title (A to Z)',
+      releaseDate: 'Release date (Newest to oldest)',
+    },
+
+    sortBy: 'gameTitle',
+
+    yearFilters: {
+      from: '',
+      to: '',
+    },
+  }),
+
+  created() {},
+
+  methods: {
+    searchTermChanged() {
+      filterGames(searchTerm);
+    },
+    filterGames(searchTerm) {
+      //filters the list of games
+    }
   }
-};
+
+}
 </script>
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.VSingleGame {
+  width: 480px;
 }
 </style>

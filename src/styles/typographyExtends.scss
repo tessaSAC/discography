@@ -1,0 +1,29 @@
+$typeFontWeightMed: 300;
+$typeFontWeightHeavy: 500;
+
+%type {
+
+  &Paragraph {
+    font-size: 14px;
+
+    &Light {
+      color: $colorsTextLight;
+    }
+  }
+
+  &Header {
+    font-size: 1rem;
+    font-weight: $typeFontWeightHeavy;
+  }
+
+  &Caption {
+    font-size: 0.8rem;
+    font-weight: $typeFontWeightHeavy;
+  }
+
+  &Label {
+    font-size: 0.8rem;
+    font-weight: $typeFontWeightHeavy;
+    text-transform: uppercase;
+  }
+}
