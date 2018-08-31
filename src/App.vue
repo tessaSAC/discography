@@ -48,6 +48,8 @@ export default {
   },
 
   data: _ => ({
+    games: [],
+
     searchTerm: '',
 
     sortBy: 'gameTitle',
@@ -64,6 +66,30 @@ export default {
   }),
 
   created() {
+    // Seed games
+    const fakeGames = [
+      {
+        id: 1,
+        name: 'Hatoful Boyfriend Holiday Star',
+        first_release_date: '1450155600',
+        hypes: 34,
+        rating: 53,
+        rating_count: 5,
+        summary: 'The birds of Hatoful Boyfriend are back in the remastered holiday-themed sequel Hatoful Boyfriend: Holiday Star. Travel to out-there worlds, meet interesting new chickadees, and find romance in the elegantly designed winter wonderlands.',
+      },
+      {
+        id: 2,
+        name: 'The Last of Us',
+        first_release_date: '1371182400',
+        hypes: 938,
+        rating: 95,
+        rating_count: 98,
+        summary: 'Twenty years after a pandemic radically transformed known civilization, infected humans run amuck and survivors kill one another for sustenance and weapons - literally whatever they can get their hands on. Joel, a salty survivor, is hired to smuggle a fourteen-year-old girl, Ellie, out of a rough military quarantine, but what begins as a simple job quickly turns into a brutal journey across the country.',
+      },
+    ]
+
+    fakeGames.forEach(game => this.games.push(game))
+
     // const headers = new Headers()
     // headers.append('user-key', '99453e0146457eeb1ab3119be98ec0d2')
     // headers.append('Accept', 'application/json')

@@ -19,3 +19,7 @@ yarn run build
 ```
 yarn run lint
 ```
+
+
+### Wireframe for PoC
+![alt text](https://github.com/tessaSAC/discography/blob/master/src/images/PoC%20Wireframe.png)
