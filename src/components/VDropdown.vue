@@ -34,7 +34,7 @@ export default {
     },
   },
   data: _ => ({
-    ddIsOpen: true,
+    ddIsOpen: false,
     ddIsDisabled: false,
     selectedOption: '',
   }),

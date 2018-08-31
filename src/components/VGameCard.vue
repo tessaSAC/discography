@@ -5,7 +5,6 @@
       :hypes="hypes"
       :rating="rating"
       :releaseDate="releaseDate"
-      :studio="studio"
     />
     <hr align="left">
     <div class="summary">
@@ -44,11 +43,6 @@ export default {
       // required: true,
     },
 
-    studio: {
-      type: String,
-      // required: true,
-    },
-
     summary: {
       type: String,
       default: 'Summary text here',
@@ -70,7 +64,9 @@ export default {
   height: 180px;
 
   .summary {
+    @extend %typeParagraph;
     color: $colorsText;
+    overflow-y: auto;
   }
 }
 hr {

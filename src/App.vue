@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <VGameCard gameTitle="ing" :hypes="45" :rating="45.3" :releaseDate="20180830" studio="unicorn" />
+    <VGameCard v-for="game in games" :key="game.id" :gameTitle="game.name" :hypes="game.hype" :rating="game.rating" :releaseDate="game.first_release_date" :summary="game.summary"/>
   </div>
 
   <VSingleGame gameTitle="ing" :hypes="45" :rating="45.3" :releaseDate="20180830" studio="unicorn" />
