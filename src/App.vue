@@ -8,15 +8,19 @@
         </VLabelFieldError>
       </div>
       <div class="yearSort">
-        <VLabelFieldError label="Release year">
-          <VReleaseYearFields />
-        </VLabelFieldError>
-        <VLabelFieldError label="Sort by" class="leftmostField">
-          <VDropdown
-            placeholder="default"
-            :options="sortByMap"
-          />
-        </VLabelFieldError>
+        <div class="yearSort">
+          <VLabelFieldError label="Release year">
+            <VReleaseYearFields />
+          </VLabelFieldError>
+        </div>
+        <div class="leftmostField">
+          <VLabelFieldError label="Sort by">
+            <VDropdown
+              :options="sortByMap"
+              default="gameTitle"
+            />
+          </VLabelFieldError>
+        </div>
       </div>
     </div>
     <div class="allGames">
@@ -65,7 +69,6 @@ export default {
     sortBy: 'gameTitle',
 
     sortByMap: {
-      default: '',
       gameTitle: 'Game title (A to Z)',
       releaseDate: 'Release date (Newest to oldest)',
     },
@@ -99,7 +102,7 @@ export default {
 
   methods: {
     searchTermChanged() {
-      filterGames(searchTerm);
+      //filterGames(searchTerm);
     },
     filterGames(searchTerm) {
       //filters the list of games
@@ -116,6 +119,7 @@ export default {
 
 .leftSide {
   flex-grow: 1;
+  flex-shrink: 1;
   flex-direction: column;
   padding: 0px 72px;
 }
@@ -139,7 +143,7 @@ export default {
 }
 
 .VSingleGame {
-  flex: 0;
+  flex-shrink: 0;
   width: 480px;
   background-color: $colorsPaper;
   min-height: 100vh;
@@ -147,5 +151,6 @@ export default {
 
 .leftmostField {
   margin-left: 36px;
+  width: 324px;
 }
 </style>
