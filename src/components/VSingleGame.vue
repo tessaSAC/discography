@@ -23,7 +23,7 @@ export default {
     VRating,
   },
   props: {
-     gameTitle: {
+    gameTitle: {
       type: String,
       // required: true,
     },
@@ -48,7 +48,7 @@ export default {
       type: String,
       // required: true,
     },
-  }
+  },
 }
 </script>
 

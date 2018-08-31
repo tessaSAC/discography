@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-  <div class="leftSide">
+  <div class="allGames">
     <div class="inputPanel">
       <div class="searchField">
         <VLabelFieldError label="Search">
@@ -15,52 +15,36 @@
         </div>
         <div class="leftmostField">
           <VLabelFieldError label="Sort by">
-            <VDropdown
-              :options="sortByMap"
-              default="gameTitle"
-            />
+            <VDropdown :options="sortByMap" default="gameTitle" />
           </VLabelFieldError>
         </div>
       </div>
     </div>
-    <div class="allGames">
-      <VGameCard
-        gameTitle="ing"
-        :hypes="45"
-        :rating="45.3"
-        :releaseDate="20180830"
-        studio="unicorn"
-      />
-    </div>
+    <VGameCard gameTitle="ing" :hypes="45" :rating="45.3" :releaseDate="20180830" studio="unicorn" />
   </div>
-  <VSingleGame
-    gameTitle="ing"
-    :hypes="45"
-    :rating="45.3"
-    :releaseDate="20180830"
-    studio="unicorn"
-  />
+
+  <VSingleGame gameTitle="ing" :hypes="45" :rating="45.3" :releaseDate="20180830" studio="unicorn" />
 </div>
 </template>
-<script>
-import VSingleGame from './components/VSingleGame'
-import VGameCard from './components/VGameCard'
-import VLabelFieldError from './components/VLabelFieldError'
-import VSearchField from './components/VSearchField'
-import VReleaseYearFields from './components/VReleaseYearFields'
-import VDropdown from './components/VDropdown'
 
+<script>
+import VDropdown from './components/VDropdown'
+import VLabelFieldError from './components/VLabelFieldError'
+import VGameCard from './components/VGameCard'
+import VReleaseYearFields from './components/VReleaseYearFields'
+import VSearchField from './components/VSearchField'
+import VSingleGame from './components/VSingleGame'
 
 export default {
   name: 'app',
 
   components: {
-    VGameCard,
-    VSingleGame,
-    VLabelFieldError,
-    VSearchField,
-    VReleaseYearFields,
     VDropdown,
+    VLabelFieldError,
+    VReleaseYearFields,
+    VGameCard,
+    VSearchField,
+    VSingleGame,
   },
 
   data: _ => ({
@@ -80,47 +64,60 @@ export default {
   }),
 
   created() {
-    const headers = new Headers()
-    headers.append('user-key', '99453e0146457eeb1ab3119be98ec0d2')
-    headers.append('Accept', 'application/json')
-    headers.append('Content-Type', 'application/json')
-    fetch('https://api-endpoint.igdb.com/games/?fields=id,name,first_release_date,developers,hypes,rating,rating_count,summary&order=name:asc', {
-      mode: 'no-cors',
-      headers: headers,
-    })
-    // fetch('https://api-endpoint.igdb.com/headers/', {
-    //   method: 'post',
-    //   body: {
-    //     "api_header": {
-    //         "header": headers,
-    //         "value": "localhost:8080",
-    //     }
-    //   },
-    // })
-    .then(res => console.log(JSON.stringify(res, null, 2)))
+    // const headers = new Headers()
+    // headers.append('user-key', '99453e0146457eeb1ab3119be98ec0d2')
+    // headers.append('Accept', 'application/json')
+    // headers.append('Content-Type', 'application/json')
+    // fetch(
+    //   'https://api-endpoint.igdb.com/games/?fields=id,name,first_release_date,developers,hypes,rating,rating_count,summary&order=name:asc',
+    //   {
+    //     mode: 'no-cors',
+    //     headers: headers,
+    //   }
+    // )
+    //   // fetch('https://api-endpoint.igdb.com/headers/', {
+    //   //   method: 'post',
+    //   //   body: {
+    //   //     "api_header": {
+    //   //         "header": headers,
+    //   //         "value": "localhost:8080",
+    //   //     }
+    //   //   },
+    //   // })
+    //   .then(res => console.log(JSON.stringify(res, null, 2)))
   },
 
   methods: {
     searchTermChanged() {
       //filterGames(searchTerm);
     },
-    filterGames(searchTerm) {
-      //filters the list of games
-    }
-  }
 
+    // filterGames(searchTerm) {
+    //   //filters the list of games
+    // },
+  },
 }
 </script>
 
 <style lang="scss">
-#app {
-  display: flex;
+// Global border-box
+body {
+  margin: 0;
+
+  & /deep/ * {
+    box-sizing: border-box;
+  }
 }
 
-.leftSide {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-direction: column;
+#app {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.allGames {
   padding: 0px 72px;
 }
 
@@ -138,15 +135,11 @@ export default {
     flex-direction: row;
   }
 }
-.allGames {
-  flex-grow: 1;
-}
 
 .VSingleGame {
-  flex-shrink: 0;
+  height: 100vh;
   width: 480px;
-  background-color: $colorsPaper;
-  min-height: 100vh;
+  background: $colorsPaper;
 }
 
 .leftmostField {

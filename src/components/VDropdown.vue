@@ -24,40 +24,44 @@
 export default {
   props: {
     options: {
-      type: Object
+      type: Object,
     },
     placeholder: {
-      type: String
+      type: String,
     },
     default: {
-      type: String
+      type: String,
     },
   },
   data: _ => ({
     ddIsOpen: true,
     ddIsDisabled: false,
-    selectedOption: ''
+    selectedOption: '',
   }),
   mounted() {
-    this.selectedOption = ( this.default ? this.default : ( this.placeholder ? this.placeholder : ''))
+    this.selectedOption = this.default
+      ? this.default
+      : this.placeholder
+        ? this.placeholder
+        : ''
   },
   computed: {
     ddClassObject() {
       return {
-        'simpleDropdown': true,
-        'boxField': true,
-        'disabled': this.ddIsDisabled,
+        simpleDropdown: true,
+        boxField: true,
+        disabled: this.ddIsDisabled,
       }
     },
     isPlaceholder() {
-      if(this.placeholder) {
+      if (this.placeholder) {
         return this.placeholder === this.selectedOption
       }
-    }
+    },
   },
   methods: {
     openDropdown() {
-      this.ddIsDisabled ? this.ddIsOpen = false : this.ddIsOpen = true
+      this.ddIsDisabled ? (this.ddIsOpen = false) : (this.ddIsOpen = true)
       this.$el.querySelector('.simpleDropdown').focus()
     },
     closeDropdown() {
@@ -68,11 +72,11 @@ export default {
       this.selectedOption = value
       this.closeDropdown()
     },
-    blurDropdown(){
+    blurDropdown() {
       this.$el.querySelector('.simpleDropdown').blur()
       this.$el.querySelector('.simpleDropdownContainer').blur()
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -123,7 +127,6 @@ export default {
         cursor: pointer;
       }
     }
-
   }
 }
 </style>
