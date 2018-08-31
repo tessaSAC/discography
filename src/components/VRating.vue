@@ -1,7 +1,6 @@
 <template>
 <div class="VRating">
   <div class="titleRating">
-    <p>hello</p>
     <div class="gameTitle"><h1>{{ gameTitle }}</h1></div>
     <div class="hypesRatings"><p>{{ hypes }}<span class="hype-heart">❤</span> | {{ rating }} %</p></div>
   </div>
@@ -40,7 +39,7 @@ export default {
   },
 
   computed: {
-    date(){
+    date() {
       return new Date(this.releaseDate)
     },
 
@@ -58,8 +57,12 @@ export default {
 <style lang="scss" scoped>
 @import 'src/styles/typographyExtends';
 
+.VRating {
+  display: flex;
+  flex-direction: column;
+}
 .hypesRatings {
-  flex-grow: 0;
+  flex: 0 0 auto;
   color: $colorsTextLight;
 
   .hype-heart {
@@ -69,6 +72,7 @@ export default {
 .titleRating {
   display: flex;
   flex: 1;
+  flex-wrap: wrap;
 }
 
 .gameTitle {
