@@ -91,6 +91,18 @@ export default {
   &:focus {
     outline: none;
   }
+  .simpleDropdown{
+    &::after {
+      content:'▿';
+      position: absolute;
+      top: 6px;
+      right: 1rem;
+    }
+  }
+  .selectedOption {
+    margin-top: 7px;
+    width: auto;
+  }
   &--dropdownPanel {
     position: absolute;
     top: 32px;
@@ -103,8 +115,9 @@ export default {
       padding: 0;
     }
     li {
+      @extend %typeParagraph;
       list-style: none;
-      padding: 12px 1rem;
+      padding: 7px 1rem;
       &:hover {
         background-color: $colorsPaper;
         cursor: pointer;
