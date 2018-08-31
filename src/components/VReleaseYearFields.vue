@@ -14,17 +14,17 @@
 export default {
   data: _ => ({
     fromYear: '',
-    toYear: ''
-  })
+    toYear: '',
+  }),
 }
 </script>
 
 <style lang="scss" scoped>
 .VReleaseYearFields {
   width: 100%;
-  display:  flex;
+  display: flex;
 
-  .toSeperator{
+  .toSeperator {
     @extend %typeParagraph;
     padding: 8px 12px;
   }
