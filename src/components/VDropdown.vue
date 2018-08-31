@@ -51,6 +51,7 @@ export default {
         simpleDropdown: true,
         boxField: true,
         disabled: this.ddIsDisabled,
+        focused: this.ddIsOpen
       }
     },
     isPlaceholder() {
@@ -62,7 +63,6 @@ export default {
   methods: {
     openDropdown() {
       this.ddIsDisabled ? (this.ddIsOpen = false) : (this.ddIsOpen = true)
-      this.$el.querySelector('.simpleDropdown').focus()
     },
     closeDropdown() {
       this.ddIsOpen = false
@@ -101,6 +101,9 @@ export default {
       position: absolute;
       top: 6px;
       right: 1rem;
+    }
+    &.focused {
+      outline: 5px auto -webkit-focus-ring-color;
     }
   }
   .selectedOption {

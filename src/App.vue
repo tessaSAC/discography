@@ -4,11 +4,11 @@
     <div class="inputPanel">
       <div class="searchField">
         <VLabelFieldError label="Search">
-          <VSearchField />
+          <VSearchField placeholder="Search for games"/>
         </VLabelFieldError>
       </div>
       <div class="yearSort">
-        <div class="yearSort">
+        <div class="yearRange">
           <VLabelFieldError label="Release year">
             <VReleaseYearFields />
           </VLabelFieldError>
@@ -119,6 +119,7 @@ body {
 
 .allGames {
   padding: 0px 72px;
+  flex: 1;
 }
 
 .inputPanel {
@@ -129,6 +130,7 @@ body {
   flex-direction: row;
   .searchField {
     width: 240px;
+    margin-right: 36px;
   }
   .yearSort {
     display: flex;
@@ -145,5 +147,9 @@ body {
 .leftmostField {
   margin-left: 36px;
   width: 324px;
+}
+
+.yearRange {
+  min-width: 180px;
 }
 </style>

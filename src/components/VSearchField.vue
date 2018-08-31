@@ -1,6 +1,6 @@
 <template>
     <div class="VSearchField">
-        <input v-model.trim="searchTerm" class="boxField"/>
+        <input v-model.trim="searchTerm" v-bind="$attrs" class="boxField"/>
         <div v-if="isSearched" class="cancelIcon" @click="clearSearch()"> &times; </div>
     </div>
 </template>

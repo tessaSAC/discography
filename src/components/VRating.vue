@@ -2,7 +2,7 @@
 <div class="VRating">
   <div class="titleRating">
     <div class="gameTitle"><h1>{{ gameTitle }}</h1></div>
-    <div class="hypesRatings"><p>{{ hypes }}<span class="hype-heart">❤</span> | {{ rating }} %</p></div>
+    <div class="hypesRatings"><p>{{ hypes }} <span class="hype-heart">❤</span> | {{ rating }} %</p></div>
   </div>
   <div>Released in {{ releaseMonth }} {{ releaseYear }} by {{ studio }}</div>
 </div>
