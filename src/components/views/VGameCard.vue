@@ -1,15 +1,17 @@
 <template>
 <div class="VGameCard">
-    <VRating
-      :gameTitle="gameTitle"
-      :hypes="hypes"
-      :rating="rating"
-      :releaseDate="releaseDate"
-    />
-    <hr align="left">
-    <div class="summary">
-        {{ summary }}
-    </div>
+  <VRating
+    :title="title"
+    :hypes="hypes"
+    :rating="rating"
+    :releaseDate="releaseDate"
+  />
+
+  <hr align="left">
+
+  <div class="summary">
+      {{ summary }}
+  </div>
 </div>
 </template>
 
@@ -22,7 +24,7 @@ export default {
   },
 
   props: {
-    gameTitle: {
+    title: {
       type: String,
       // required: true,
     },
@@ -51,25 +53,26 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .VGameCard {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 18px 24px;
-  background-color: $colorsPaper;
-  box-shadow: 5px 6px 7px 0px $colorsTextLight;
-  margin-bottom: 24px;
-  border-radius: 4px;
   height: 180px;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  background: $colorsPaper;
+  border-radius: 4px;
+  box-shadow: 5px 6px 7px 0px $colorsTextLight;
+
+  & + .VGameCard {
+    margin-top: 24px;
+  }
 
   .summary {
     @extend %typeParagraph;
     color: $colorsText;
     overflow-y: auto;
   }
-}
-hr {
-  width: 90px;
+
+  hr {  width: 90px; }
 }
 </style>

@@ -1,0 +1,27 @@
+Notes:
+
+- components do not follow breakdown from wireframes
+- choices made of how to break app into componenents is odd
+- year component does not make use of input component as discussed extensively during planning
+- naming choices are odd or confusing (e.g. VEverything, class and property names)
+- functionality for data transfer between components is missing
+- components are not self-closing where possible (mostly resolved)
+- does not follow style guide
+  - components with multiple attributes are left on one line
+  - instance options are out of order
+  - no helpful spacing used
+  - properties are not alphabetized
+- unnecessary divs and classes (unused)
+- unnecessary specificity (background-color)
+- pseudoclasses
+- contrary to prior discussion, using scoped styles when they should be unscoped everywhere except App
+- random singleton application of BEM style (VDropdown)
+- the piece we could not resolve on our own, linking to the API, is unfinished
+- additional logic (e.g. min and max year) not specified in wireframes
+- odd prop specs (type choice, default/req not set, etc.)
+
+TODO:
+- clean up CSS
+- move labels, etc. to props
+- add functionality
+- bring in fuzzy search capability
