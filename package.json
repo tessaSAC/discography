@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "fuse.js": "^3.2.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {
@@ -29,7 +30,10 @@
       "@vue/prettier"
     ],
     "rules": {
-      "array-element-newline": ["error", "never"],
+      "array-element-newline": [
+        "error",
+        "never"
+      ],
       "block-spacing": "error",
       "comma-spacing": [
         "error",
