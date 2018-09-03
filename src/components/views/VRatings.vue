@@ -1,11 +1,13 @@
 <template>
 <div class="VRatings">
   <div class="rowTop">
-    <div class="gameTitle"><h1>{{ title }}</h1></div>
-    <div class="hypesRatings"><p>
+    <h1>{{ title }}</h1>
+
+    <div class="ratings"> <!-- TODO: Ing Shaun why was one text p and one div? -->
       {{ hypes }} <span class="heart">❤</span> | {{ rating }}% ({{ numRatings }})
-    </p></div>
+    </div>
   </div>
+
   <div class="rowBottom">Released in {{ releaseMonth }} {{ releaseYear }}</div>
 </div>
 </template>
@@ -64,7 +66,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .hypesRatings {
+  .ratings {
     color: $colorsTextLight;
   }
   .heart {
@@ -72,6 +74,7 @@ export default {
   }
 
   // TODO: Ing Shaun what is the space between each item?
+  // (title and ratings, ratings and release)
   .rowTop {
     display: flex;
     flex-wrap: wrap;

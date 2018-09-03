@@ -14,9 +14,7 @@
 
   <div class="divider" />
 
-  <div class="summary">
-      {{ summary }}
-  </div>
+  <div class="summary">{{ summary }}</div>
 </div>
 </template>
 
