@@ -13,11 +13,12 @@
     </div>
 
     <VGameCard
-      v-for="({ id, name, first_release_date, hypes, rating, summary }) in games"
+      v-for="({ id, name, first_release_date, hypes, rating, rating_count, summary }) in games"
       :key="id"
       :id="id"
       :title="name"
       :hypes="hypes"
+      :numRatings="rating_count"
       :rating="rating"
       :releaseDate="first_release_date"
       :summary="summary"
@@ -64,7 +65,7 @@ export default {
       {
         id: 1,
         name: 'Hatoful Boyfriend Holiday Star',
-        first_release_date: 1450155600,
+        first_release_date: 1450137600000,
         hypes: 34,
         rating: 53,
         rating_count: 5,
@@ -74,7 +75,7 @@ export default {
       {
         id: 2,
         name: 'The Last of Us',
-        first_release_date: 1371182400,
+        first_release_date: 1371182400000,
         hypes: 938,
         rating: 95,
         rating_count: 98,

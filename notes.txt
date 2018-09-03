@@ -24,6 +24,8 @@ Notes:
 
 TODO:
 - clean up CSS
+- update weird flex specs in wireframes
+- Remove developer from wireframes
 - move labels, etc. to props
 - add functionality
 - bring in fuzzy search capability

@@ -4,10 +4,11 @@
     :title="title"
     :hypes="hypes"
     :rating="rating"
+    :numRatings="numRatings"
     :releaseDate="releaseDate"
   />
 
-  <hr align="left">
+  <div class="divider" />
 
   <div class="summary">
       {{ summary }}
@@ -26,28 +27,32 @@ export default {
   props: {
     title: {
       type: String,
-      // required: true,
+      required: true,
     },
 
     hypes: {
       type: Number,
-      // required: true,
-      default: 0,
+      required: true,
+    },
+
+    numRatings: {
+      type: Number,
+      required: true,
     },
 
     rating: {
       type: Number,
-      // required: true,
+      required: true,
     },
 
     releaseDate: {
       type: Number,
-      // required: true,
+      required: true,
     },
 
     summary: {
       type: String,
-      default: 'Summary text here',
+      required: true,
     },
   },
 }
@@ -56,23 +61,30 @@ export default {
 <style lang="scss">
 .VGameCard {
   height: 180px;
-  padding: 18px 24px;
   display: flex;
   flex-direction: column;
   background: $colorsPaper;
   border-radius: 4px;
   box-shadow: 5px 6px 7px 0px $colorsTextLight;
+  padding: 18px 24px;
 
   & + .VGameCard {
     margin-top: 24px;
   }
 
-  .summary {
-    @extend %typeParagraph;
-    color: $colorsText;
-    overflow-y: auto;
+  .divider {
+    width: 90px;
+    height: 1px;
+    margin-top: 12px;
+    margin-bottom: 9px;
+    background: $colorsTextLight;
   }
 
-  hr {  width: 90px; }
+  .summary {
+    // TODO: Ing Shaun what is line spacing as summary looks odd!
+    @extend %typeParagraph;
+    overflow-y: auto;
+    color: $colorsText;
+  }
 }
 </style>

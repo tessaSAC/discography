@@ -1,40 +1,43 @@
 <template>
 <div class="VRatings">
-  <div class="titleRating">
-    <div class="gameTitle"><h1>{{ gameTitle }}</h1></div>
-    <div class="hypesRatings"><p>{{ hypes }} <span class="heart">❤</span> | {{ rating }}% ({{ numRatings }})</p></div>
+  <div class="rowTop">
+    <div class="gameTitle"><h1>{{ title }}</h1></div>
+    <div class="hypesRatings"><p>
+      {{ hypes }} <span class="heart">❤</span> | {{ rating }}% ({{ numRatings }})
+    </p></div>
   </div>
-  <div class="releaseOn">Released in {{ releaseMonth }} {{ releaseYear }}</div>
+  <div class="rowBottom">Released in {{ releaseMonth }} {{ releaseYear }}</div>
 </div>
 </template>
 
 <script>
+const locale = 'en-us'
+
 export default {
   props: {
-    gameTitle: {
+    title: {
       type: String,
-      // required: true,
+      required: true,
     },
 
     hypes: {
       type: Number,
-      // required: true,
-      default: 0,
+      required: true,
     },
 
     numRatings: {
       type: Number,
-      // required: true,
+      required: true,
     },
 
     rating: {
       type: Number,
-      // required: true,
+      required: true,
     },
 
     releaseDate: {
       type: Number,
-      // required: true,
+      required: true,
     },
   },
 
@@ -44,7 +47,7 @@ export default {
     },
 
     releaseMonth() {
-      return this.date.getMonth()
+      return this.date.toLocaleString(locale, { month: 'short' })
     },
 
     releaseYear() {
@@ -62,25 +65,20 @@ export default {
   flex-direction: column;
 
   .hypesRatings {
-    flex: 0 0 auto;
     color: $colorsTextLight;
-
-    .heart {
-      color: $colorsLove;
-    }
+  }
+  .heart {
+    color: $colorsLove;
   }
 
-  .titleRating {
+  // TODO: Ing Shaun what is the space between each item?
+  .rowTop {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
   }
-
-  .gameTitle {
-    min-width: 400px;
-    color: $colorsTextHeavy;
-  }
-
-  .releaseOn {
+  .rowBottom {
     @extend %typeParagraph;
   }
 }
