@@ -1,5 +1,9 @@
 <template>
-<div class="VGameCard">
+<div
+  class="VGameCard"
+  :class="{ selected: selected }"
+  @click="$emit('gameSelected', id)"
+>
   <VRatings
     :title="title"
     :hypes="hypes"
@@ -25,12 +29,12 @@ export default {
   },
 
   props: {
-    title: {
-      type: String,
+    hypes: {
+      type: Number,
       required: true,
     },
 
-    hypes: {
+    id: {
       type: Number,
       required: true,
     },
@@ -50,7 +54,17 @@ export default {
       required: true,
     },
 
+    selected: {
+      type: Boolean,
+      default: false,
+    },
+
     summary: {
+      type: String,
+      required: true,
+    },
+
+    title: {
       type: String,
       required: true,
     },
@@ -70,6 +84,13 @@ export default {
 
   & + .VGameCard {
     margin-top: 24px;
+  }
+
+  &.selected {
+    position: relative;
+    left: -13px;
+    top: -14px;
+    box-shadow: 18px 20px 10px 0px $colorsTextLight;
   }
 
   .divider {

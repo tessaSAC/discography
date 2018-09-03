@@ -1,17 +1,18 @@
 <template>
 <div class="SingleGame">
-  <div class="gameCover">
-    <img :src="imgUrl" :alt="title">
-  </div>
+  <template v-if="id">
+    <div class="gameCover">
+      <img :src="imgUrl" :alt="title">
+    </div>
 
-  <VRatings
-    :title="title"
-    :hypes="hypes"
-    :numRatings="numRatings"
-    :rating="rating"
-    :releaseDate="releaseDate"
-  >
-  </VRatings>
+    <VRatings
+      :title="title"
+      :hypes="hypes"
+      :numRatings="numRatings"
+      :rating="rating"
+      :releaseDate="releaseDate"
+    />
+  </template>
 </div>
 </template>
 
@@ -41,38 +42,40 @@ export default {
     title: '',
   }),
 
-  created() {
-    // TODO: Replace with call to get images, etc. for this game
-    const games = [
-      {
-        id: 1,
-        name: 'Hatoful Boyfriend Holiday Star',
-        first_release_date: 1450155600,
-        hypes: 34,
-        imgUrl: `${ this.baseUrl }testGames/hato.jpg`,
-        rating: 53,
-        rating_count: 5,
-      },
-      {
-        id: 2,
-        name: 'The Last of Us',
-        first_release_date: 1371182400,
-        hypes: 938,
-        imgUrl: `${ this.baseUrl }testGames/tlou.jpg`,
-        rating: 95,
-        rating_count: 98,
-      },
-    ]
+  watch: {
+    id() {
+      // TODO: Replace with call to get images, etc. for this game
+      const games = [
+        {
+          id: 1,
+          name: 'Hatoful Boyfriend Holiday Star',
+          first_release_date: 1450155600,
+          hypes: 34,
+          imgUrl: `${ this.baseUrl }testGames/hato.jpg`,
+          rating: 53,
+          rating_count: 5,
+        },
+        {
+          id: 2,
+          name: 'The Last of Us',
+          first_release_date: 1371182400,
+          hypes: 938,
+          imgUrl: `${ this.baseUrl }testGames/tlou.jpg`,
+          rating: 95,
+          rating_count: 98,
+        },
+      ]
 
-    const selected = games.filter(game => game.id === this.id)[0]
-    console.log(selected.imgUrl)
-    this.title = selected.name
-    this.hypes = selected.hypes
-    this.imgUrl = selected.imgUrl
-    this.numRatings = selected.rating_count
-    this.rating = selected.rating
-    this.releaseDate = selected.first_release_date
-  },
+      const selected = games.filter(game => game.id === this.id)[0]
+      console.log(selected.imgUrl)
+      this.title = selected.name
+      this.hypes = selected.hypes
+      this.imgUrl = selected.imgUrl
+      this.numRatings = selected.rating_count
+      this.rating = selected.rating
+      this.releaseDate = selected.first_release_date
+    }
+  }
 }
 </script>
 
@@ -90,6 +93,7 @@ $coverLength: 210px;
 
     img {
       width: 100%;
+      height: 100%;
       object-position: 0 0;
       object-fit: cover;
     }

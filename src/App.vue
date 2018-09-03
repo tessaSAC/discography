@@ -21,11 +21,13 @@
       :numRatings="rating_count"
       :rating="rating"
       :releaseDate="first_release_date"
+      :selected="idSelected === id"
       :summary="summary"
+      @gameSelected="id => idSelected = id"
     />
   </div>
 
-  <SingleGame :id="1" />
+  <SingleGame :id="idSelected" />
 </div>
 </template>
 
@@ -50,6 +52,8 @@ export default {
 
   data: _ => ({
     games: [],
+
+    idSelected: NaN,
 
     searchTerm: '',
 
