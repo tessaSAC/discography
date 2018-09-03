@@ -101,8 +101,8 @@ export default {
 
   .summary {
     // TODO: Ing Shaun what is line spacing as summary looks odd!
-    @extend %typeParagraph;
     overflow-y: auto;
+    @extend %typeParagraph;
     color: $colorsText;
   }
 }

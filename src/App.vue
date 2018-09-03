@@ -1,14 +1,14 @@
 <template>
 <div id="app">
-  <div class="allGames">
+  <div class="gamesList">
     <div class="filterBar">
       <FieldSearch
         label="Search"
         placeholder="Search for games"
       />
-      <div class="yearSort">
+      <div class="filters">
         <RangeYear />
-        <VDropdown class="leftmostField" />
+        <VDropdown />
       </div>
     </div>
 
@@ -54,13 +54,6 @@ export default {
     games: [],
 
     idSelected: NaN,
-
-    searchTerm: '',
-
-    yearFilters: {
-      from: '',
-      to: '',
-    },
   }),
 
   created() {
@@ -134,42 +127,38 @@ export default {
   flex-direction: row;
 }
 
-.allGames {
+.gamesList {
   padding: 0px 72px;
-  flex: 1;
 }
 
 .filterBar {
   padding: 24px 0px;
   display: flex;
-  flex: 1;
   justify-content: space-between;
-  flex-direction: row;
+  align-items: center;
 }
 
-.yearSort {
+.filters {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .FieldSearch {
   width: 240px;
-  margin-right: 36px;
 }
 
-.SingleGame
-{
-  height: 100vh;
+.SingleGame {
   width: 480px;
   background: $colorsPaper;
 }
 
-.leftmostField {
-  margin-left: 36px;
-  width: 324px;
+.RangeYear {
+  width: 180px;
 }
 
-.RangeYear {
-  min-width: 180px;
+.VDropdown {
+  margin-left: 36px;
+  width: 192px;
 }
 </style>

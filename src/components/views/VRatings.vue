@@ -60,8 +60,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'src/styles/typographyExtends';
-
 .VRatings {
   display: flex;
   flex-direction: column;

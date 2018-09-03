@@ -1,27 +1,24 @@
 <template>
-    <div class="VLabelFieldError">
-        <div class="label"><label>{{ label }}</label></div>
-        <slot @err="assignErrMsg()" @clearErr="clearErrMsg()"/>
-        <div class="errorMsg">{{ errorMsg }}</div>
+    <div class="VInput">
+        <label class="label">{{ label }}</label>
+
+        <div class="inputContainer"><slot /></div>
+
+        <div class="error">{{ error }}</div>
     </div>
 </template>
 
 <script>
 export default {
   props: {
+    error: {
+      type: String,
+      default: '',
+    },
+
     label: {
       type: String,
-    },
-  },
-  data: _ => ({
-    errorMsg: '',
-  }),
-  methods: {
-    assignErrMsg(payload) {
-      this.errorMsg = payload.message
-    },
-    clearErrMsg() {
-      this.errorMsg = ''
+      default: '',
     },
   },
 }
@@ -33,16 +30,30 @@ export default {
 
   .label {
     width: 100%;
-    height: 15px;
+    display: block;
     margin-bottom: 9px;
   }
 
-  .errorMsg {
-    @extend %typeCaption;
+  .error {
     width: 100%;
-    height: 15px;
     margin-top: 6px;
+    @extend %typeCaption;
     color: $colorsLove;
+  }
+
+  .inputContainer {
+    .input {
+      width: 100%;
+      height: 32px;
+      border: 1px solid $colorsTextLight;
+      border-radius: 4px;
+      padding: 0 1rem;
+      @extend %typeParagraph;
+
+      &::placeholder {
+        @extend %typeParagraphLight;
+      }
+    }
   }
 }
 </style>

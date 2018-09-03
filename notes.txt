@@ -22,6 +22,8 @@ Notes:
 - odd prop specs (type choice, default/req not set, etc.)
 - needs rebase (mixing both work and personal accounts)
 
+* It seems like I was right re: feeling slots for this PoC were a bad idea. The field and dropdown component are essentially the same with the same error handling logic and appearance. However with the slot it appears to be impossible to delegate error handling to the slot container as it has no way of knowing when the slot child input has been changed.
+
 TODO:
 - clean up CSS
 - update weird flex specs in wireframes
@@ -29,3 +31,4 @@ TODO:
 - move labels, etc. to props
 - add functionality
 - bring in fuzzy search capability
+- either add clear button to wireframes (more work for everyone else) or remove it from app

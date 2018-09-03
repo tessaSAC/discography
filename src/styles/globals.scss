@@ -10,7 +10,7 @@ $colorsLove: #e55d5d;
 
 // Typography
 
-@import './typographyExtends';
+@import 'src/styles/typographyExtends';
 $typeFontFamily: Arial;
 
 body {
@@ -22,3 +22,9 @@ body {
 p { @extend %typeParagraph; }
 h1 { @extend %typeHeader; }
 label { @extend %typeLabel; }
+
+
+// Resets:
+body * {
+  box-sizing: border-box;
+}
