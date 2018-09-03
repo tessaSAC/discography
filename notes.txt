@@ -19,6 +19,7 @@ Notes:
 - the piece we could not resolve on our own, linking to the API, is unfinished
 - additional logic (e.g. min and max year) not specified in wireframes
 - odd prop specs (type choice, default/req not set, etc.)
+- needs rebase (mixing both work and personal accounts)
 
 TODO:
 - clean up CSS
