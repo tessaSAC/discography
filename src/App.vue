@@ -24,7 +24,7 @@
     />
   </div>
 
-  <SingleGame />
+  <SingleGame :id="1" />
 </div>
 </template>
 

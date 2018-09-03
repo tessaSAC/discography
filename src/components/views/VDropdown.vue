@@ -125,6 +125,15 @@ export default {
     display: none !important;  // TODO: why do you need !important
   }
 
+  .boxField {
+    @extend %typeParagraph;
+    height: 32px;
+    width: 100%;
+    padding: 0 1rem;
+    border-radius: 4px;
+    border: 1px solid $colorsTextLight;
+  }
+
   .dropdownContainer {
     width: 100%;
     position: relative;

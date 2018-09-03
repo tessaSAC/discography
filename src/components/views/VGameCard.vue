@@ -1,6 +1,6 @@
 <template>
 <div class="VGameCard">
-  <VRating
+  <VRatings
     :title="title"
     :hypes="hypes"
     :rating="rating"
@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import VRating from './VRating'
+import VRatings from './VRatings'
 
 export default {
   components: {
-    VRating,
+    VRatings,
   },
 
   props: {

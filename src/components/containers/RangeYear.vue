@@ -57,5 +57,14 @@ export default {
     -webkit-appearance: none;
     margin: 0;
   }
+
+  .boxField {
+    @extend %typeParagraph;
+    height: 32px;
+    width: 100%;
+    padding: 0 1rem;
+    border-radius: 4px;
+    border: 1px solid $colorsTextLight;
+  }
 }
 </style>

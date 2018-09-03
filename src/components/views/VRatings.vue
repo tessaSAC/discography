@@ -1,8 +1,8 @@
 <template>
-<div class="VRating">
+<div class="VRatings">
   <div class="titleRating">
     <div class="gameTitle"><h1>{{ gameTitle }}</h1></div>
-    <div class="hypesRatings"><p>{{ hypes }} <span class="hype-heart">❤</span> | {{ rating }} %</p></div>
+    <div class="hypesRatings"><p>{{ hypes }} <span class="heart">❤</span> | {{ rating }}% ({{ numRatings }})</p></div>
   </div>
   <div class="releaseOn">Released in {{ releaseMonth }} {{ releaseYear }}</div>
 </div>
@@ -20,6 +20,11 @@ export default {
       type: Number,
       // required: true,
       default: 0,
+    },
+
+    numRatings: {
+      type: Number,
+      // required: true,
     },
 
     rating: {
@@ -49,35 +54,34 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import 'src/styles/typographyExtends';
 
-.VRating {
+.VRatings {
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
-}
-.hypesRatings {
-  flex: 0 0 auto;
-  color: $colorsTextLight;
 
-  .hype-heart {
-    color: $colorsLove;
+  .hypesRatings {
+    flex: 0 0 auto;
+    color: $colorsTextLight;
+
+    .heart {
+      color: $colorsLove;
+    }
   }
-}
-.titleRating {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-}
 
-.gameTitle {
-  flex-grow: 1;
-  min-width: 400px;
-  color: $colorsTextHeavy;
-}
+  .titleRating {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.releaseOn {
-  @extend %typeParagraph;
+  .gameTitle {
+    min-width: 400px;
+    color: $colorsTextHeavy;
+  }
+
+  .releaseOn {
+    @extend %typeParagraph;
+  }
 }
 </style>

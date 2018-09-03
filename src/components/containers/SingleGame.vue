@@ -1,88 +1,98 @@
 <template>
 <div class="SingleGame">
   <div class="gameCover">
-    <img :src="imgUrl" alt="">
+    <img :src="imgUrl" :alt="title">
   </div>
 
-  <VRating
+  <VRatings
     :title="title"
     :hypes="hypes"
+    :numRatings="numRatings"
     :rating="rating"
     :releaseDate="releaseDate"
   >
-  </VRating>
+  </VRatings>
 </div>
 </template>
 
 <script>
-import VRating from '../views/VRating'
+import VRatings from '../views/VRatings'
 
 export default {
   components: {
-    VRating,
+    VRatings,
   },
 
-  // props: {
-  //   gameTitle: {
-  //     type: String,
-  //     // required: true,
-  //   },
-
-  //   hypes: {
-  //     type: Number,
-  //     // required: true,
-  //     default: 0,
-  //   },
-
-  //   rating: {
-  //     type: Number,
-  //     // required: true,
-  //   },
-
-  //   releaseDate: {
-  //     type: Number,
-  //     // required: true,
-  //   },
-
-  //   studio: {
-  //     type: String,
-  //     // required: true,
-  //   },
-  // },
+  props: {
+    id: {
+      type: Number,
+      required: false,
+    },
+  },
 
   data: _ => ({
-    title: '',
+    baseUrl: process.env.BASE_URL,  // TODO: Delete after adding working API call
+
     hypes: 0,
+    imgUrl: '',
+    numRatings: 0,
     rating: 0,
     releaseDate: 0,
+    title: '',
   }),
 
   created() {
     // TODO: Replace with call to get images, etc. for this game
-    this.title = 'Hatoful Boyfriend Holiday Star'
-    this.hypes = 34
-    this.releaseDate = 1450155600
-    this.rating = 53
-  }
+    const games = [
+      {
+        id: 1,
+        name: 'Hatoful Boyfriend Holiday Star',
+        first_release_date: 1450155600,
+        hypes: 34,
+        imgUrl: `${ this.baseUrl }testGames/hato.jpg`,
+        rating: 53,
+        rating_count: 5,
+      },
+      {
+        id: 2,
+        name: 'The Last of Us',
+        first_release_date: 1371182400,
+        hypes: 938,
+        imgUrl: `${ this.baseUrl }testGames/tlou.jpg`,
+        rating: 95,
+        rating_count: 98,
+      },
+    ]
+
+    const selected = games.filter(game => game.id === this.id)[0]
+    console.log(selected.imgUrl)
+    this.title = selected.name
+    this.hypes = selected.hypes
+    this.imgUrl = selected.imgUrl
+    this.numRatings = selected.rating_count
+    this.rating = selected.rating
+    this.releaseDate = selected.first_release_date
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $coverLength: 210px;
 
 .SingleGame {
   padding: 72px 48px;
-}
 
-.gameCover {
-  width: $coverLength;
-  height: $coverLength;
+  .gameCover {
+    width: $coverLength;
+    height: $coverLength;
 
-  margin-bottom: 36px;
+    margin-bottom: 36px;
 
-  img {
-    object-position: 0 0;
-    object-fit: cover;
+    img {
+      width: 100%;
+      object-position: 0 0;
+      object-fit: cover;
+    }
   }
 }
 </style>

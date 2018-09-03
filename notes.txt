@@ -14,7 +14,8 @@ Notes:
 - unnecessary divs and classes (unused)
 - unnecessary specificity (background-color)
 - pseudoclasses
-- contrary to prior discussion, using scoped styles when they should be unscoped everywhere except App
+- contrary to prior decision, using scoped styles when they should be unscoped everywhere except App
+- contrary to prior decision, some component styles are in global scss files
 - random singleton application of BEM style (VDropdown)
 - the piece we could not resolve on our own, linking to the API, is unfinished
 - additional logic (e.g. min and max year) not specified in wireframes
