@@ -1,25 +1,24 @@
 # discography
 
+## Intro
+
+Vue PoC for Disco component library using Vue CLI 3.0
+(wireframes below)
+
+[view PoC](https://tessasac.github.io/discography)
+
 ## Project setup
-```
-yarn install
-```
+`yarn install`
 
 ### Compiles and hot-reloads for development
-```
-yarn serve
-```
+`yarn serve`
 
 ### Compiles and minifies for production
-```
-yarn build
-```
+`yarn build`
 
 ### Lints and fixes files
-```
-yarn lint
-```
+`yarn lint`
 
 
-### Wireframe for PoC
-![alt text](https://github.com/tessaSAC/discography/blob/master/src/images/wireframes.png)
+### Wireframes for PoC
+![disco poc wireframes](https://github.com/tessaSAC/discography/blob/master/src/images/wireframes.png)
