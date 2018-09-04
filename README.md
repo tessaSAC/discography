@@ -5,7 +5,7 @@
 Vue PoC for Disco component library using Vue CLI 3.0
 (wireframes below)
 
-[view PoC](https://tessasac.github.io/discography)
+[click here to view PoC](https://tessasac.github.io/discography)
 
 ## Project setup
 `yarn install`
