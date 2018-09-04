@@ -148,7 +148,7 @@ export default {
 }
 
 .SingleGame {
-  width: 480px;
+  min-width: 480px;  // needs to be `min-width` b/c flex messes with `widths`
   background: $colorsPaper;
 }
 

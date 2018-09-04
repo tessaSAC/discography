@@ -78,6 +78,10 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+
+    h1 {
+      min-width: 280px;  // hack to force ratings to next row in SingleGame
+    }
   }
   .rowBottom {
     @extend %typeParagraph;

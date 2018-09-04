@@ -1,6 +1,10 @@
 <template>
 <div class="SingleGame">
-  <template v-if="id">
+  <div
+    v-if="id"
+    :class="[ 'overEasy', addAnimation ? 'fadeIn' : '' ]"
+    @animationend="removeAnimation"
+  >
 
     <div class="gameCover">
       <img :src="imgUrl" :alt="title">
@@ -14,7 +18,7 @@
       :releaseDate="releaseDate"
     />
 
-  </template>
+  </div>
 </div>
 </template>
 
@@ -36,18 +40,18 @@ export default {
   data: _ => ({
     baseUrl: process.env.BASE_URL, // TODO: Delete after adding working API call
 
+    addAnimation: false,
     hypes: 0,
     imgUrl: '',
     numRatings: 0,
-    prevId: 0,
     rating: 0,
     releaseDate: 0,
     title: '',
   }),
 
   watch: {
-    id(newId, prev) {
-      this.prevId = prev
+    id() {
+      this.addAnimation = true
 
       // TODO: Replace with call to get images, etc. for this game
       const games = [
@@ -81,6 +85,12 @@ export default {
       this.releaseDate = selected.first_release_date
     },
   },
+
+  methods: {
+    removeAnimation() {
+      this.addAnimation = false
+    }
+  },
 }
 </script>
 
@@ -102,6 +112,27 @@ $coverLength: 210px;
       object-position: 0 0;
       object-fit: cover;
     }
+  }
+
+  // Transitions:
+  .overEasy {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-24px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  .fadeIn {
+    animation-name: fadeIn;
   }
 }
 </style>
