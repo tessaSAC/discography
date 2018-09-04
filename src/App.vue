@@ -157,7 +157,7 @@ export default {
 }
 
 .VDropdown {
-  margin-left: 36px;
+  margin-left: 16px;
   width: 192px;
 }
 </style>
