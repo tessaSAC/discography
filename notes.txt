@@ -27,8 +27,12 @@ Notes:
 TODO:
 - clean up CSS
 - update weird flex specs in wireframes
-- Remove developer from wireframes
+- remove developer from wireframes
+- change year range to 192px as 180 is too narrow
+- change error message to remove 'is' -- doesn't fit
 - move labels, etc. to props
 - add functionality
 - bring in fuzzy search capability
 - either add clear button to wireframes (more work for everyone else) or remove it from app
+- normalize and variablize all margin and font sizes
+  - update wireframes accordingly

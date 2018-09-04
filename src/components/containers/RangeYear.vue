@@ -1,70 +1,95 @@
 <template>
 <div class="RangeYear">
-  <VInput label="Release year" class="inputs">
-    <input
-      v-model.trim="fromYear"
-      placeholder="1900"
-      type="number"
-      min="1900"
-      max="2018"
-      class="boxField"
-    />
-    <!-- TODO: Is min and max required? They weren't in the wireframes. -->
+  <VInput
+    label="Release year"
+    :error="error"
+  >
+    <div class="inputs">
+      <VField
+        placeholder="1900"
+        :userInput="from"
+        type="number"
+        @inputChanged="updateInput($event, 'from')"
+        @keyup.native.enter="fetchGames"
+      />
+      <!-- TODO: Is min and max required? They weren't in the wireframes. -->
 
-    <div class="labelTo">to</div>
+      <div class="labelTo">to</div>
 
-    <input
-      v-model.trim="toYear"
-      placeholder="2018"
-      type="number"
-      min="1900"
-      max="2018"
-      class="boxField"
-    />
+      <VField
+        placeholder="2018"
+        :userInput="to"
+        type="number"
+        @inputChanged="updateInput($event, 'to')"
+        @keyup.native.enter="fetchGames"
+      />
+    </div>
   </VInput>
 </div>
 </template>
 
 <script>
+import VField from '../views/VField'
 import VInput from '../views/VInput'
 
 export default {
   components: {
+    VField,
     VInput,
   },
 
   data: _ => ({
-    fromYear: '',
-    toYear: '',
+    from: '',
+    to: '',
   }),
+
+  computed: {
+    error() {
+      // Theoretically a user can make an open-ended request but let's not go there...
+      if (this.to && this.from && this.to < this.from) return 'Reverse time-travel not allowed'
+    },
+  },
+
+  methods: {
+    fetchGames() {
+      if(!this.error) console.log('make the api call here')
+    },
+
+    updateInput(n, which) {
+      this[which] = n.toString().replace(/\D/g,'').slice(0, 4)
+    }
+  },
 }
 </script>
 
 <style lang="scss">
 .RangeYear {
-  .inputs {
-    width: 100%;
-    display: flex;
+  .VInput {
 
-    .labelTo {
-      @extend %typeParagraph;
-      padding: 8px 12px;
+    .inputs {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .label {
+        display: none;
+      }
+
+      .error {
+        display: none;
+      }
     }
+  }
+
+  .labelTo {
+    @extend %typeParagraph;
+    margin: 0 1rem;
   }
 
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-
-  .boxField {
-    @extend %typeParagraph;
-    height: 32px;
-    width: 100%;
-    padding: 0 1rem;
-    border-radius: 4px;
-    border: 1px solid $colorsTextLight;
   }
 }
 </style>

@@ -43,12 +43,10 @@ export default {
     // options: {
     //   type: Object,  // TODO: why Object?
     // },
-
     // placeholder: {
     //   type: String,
     //   default: '',
     // },
-
     // default: {  // Why come up with original name instead of using HTML name ('selected')?
     //   type: String,  // So this is String but options are Object? API is unclear
     //   required: false,
@@ -57,7 +55,7 @@ export default {
 
   data: _ => ({
     ddIsOpen: false,
-    ddIsDisabled: false,  // Wireframes don't specify this?
+    ddIsDisabled: false, // Wireframes don't specify this?
     selectedOption: '',
 
     sortBy: 'gameTitle',
@@ -85,8 +83,9 @@ export default {
     },
   },
 
-  mounted() {  // TODO: This does not belong in mounted
-    this.selectedOption = this.default  // TODO: Remove nested ternary exp if possible
+  mounted() {
+    // TODO: This does not belong in mounted
+    this.selectedOption = this.default // TODO: Remove nested ternary exp if possible
       ? this.default
       : this.placeholder
         ? this.placeholder
@@ -95,8 +94,8 @@ export default {
 
   methods: {
     blurDropdown() {
-      this.$el.querySelector('.dropdown').blur()  // TODO: this is suspicious
-      this.$el.querySelector('.dropdownContainer').blur()  // what is going on here?
+      this.$el.querySelector('.dropdown').blur() // TODO: this is suspicious
+      this.$el.querySelector('.dropdownContainer').blur() // what is going on here?
     },
 
     closeDropdown() {
@@ -122,7 +121,7 @@ export default {
   width: 100%;
 
   .force_hide {
-    display: none !important;  // TODO: why do you need !important
+    display: none !important; // TODO: why do you need !important
   }
 
   .boxField {
@@ -138,10 +137,13 @@ export default {
     width: 100%;
     position: relative;
 
-    &:focus { outline: none; }
+    &:focus {
+      outline: none;
+    }
 
     .dropdown {
-      &::after {  // TODO: better to find a non-pseudoclass way -- see TheTopNavbar in UX app
+      &::after {
+        // TODO: better to find a non-pseudoclass way -- see TheTopNavbar in UX app
         content: '▿';
         position: absolute;
         top: 6px;

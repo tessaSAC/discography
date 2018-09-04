@@ -1,6 +1,7 @@
 <template>
 <div class="SingleGame">
   <template v-if="id">
+
     <div class="gameCover">
       <img :src="imgUrl" :alt="title">
     </div>
@@ -12,6 +13,7 @@
       :rating="rating"
       :releaseDate="releaseDate"
     />
+
   </template>
 </div>
 </template>
@@ -32,18 +34,21 @@ export default {
   },
 
   data: _ => ({
-    baseUrl: process.env.BASE_URL,  // TODO: Delete after adding working API call
+    baseUrl: process.env.BASE_URL, // TODO: Delete after adding working API call
 
     hypes: 0,
     imgUrl: '',
     numRatings: 0,
+    prevId: 0,
     rating: 0,
     releaseDate: 0,
     title: '',
   }),
 
   watch: {
-    id() {
+    id(newId, prev) {
+      this.prevId = prev
+
       // TODO: Replace with call to get images, etc. for this game
       const games = [
         {
@@ -51,7 +56,7 @@ export default {
           name: 'Hatoful Boyfriend Holiday Star',
           first_release_date: 1450155600,
           hypes: 34,
-          imgUrl: `${ this.baseUrl }testGames/hato.jpg`,
+          imgUrl: `${this.baseUrl}testGames/hato.jpg`,
           rating: 53,
           rating_count: 5,
         },
@@ -60,22 +65,22 @@ export default {
           name: 'The Last of Us',
           first_release_date: 1371182400,
           hypes: 938,
-          imgUrl: `${ this.baseUrl }testGames/tlou.jpg`,
+          imgUrl: `${this.baseUrl}testGames/tlou.jpg`,
           rating: 95,
           rating_count: 98,
         },
       ]
 
       const selected = games.filter(game => game.id === this.id)[0]
-      console.log(selected.imgUrl)
+
       this.title = selected.name
       this.hypes = selected.hypes
       this.imgUrl = selected.imgUrl
       this.numRatings = selected.rating_count
       this.rating = selected.rating
       this.releaseDate = selected.first_release_date
-    }
-  }
+    },
+  },
 }
 </script>
 

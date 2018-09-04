@@ -5,16 +5,11 @@
     :errorHandler="errorHandler"
   >
     <input
-      v-model.trim="userInput"
+      v-bind="$attrs"
+      v-model.trim="updatedInput"
       :placeholder="placeholder"
       class="input"
     />
-
-    <div
-      v-show="userInput"
-      class="btnClear"
-      @click="clearSearch"
-    >&times;</div>
 
   </VInput>
 </div>
@@ -27,6 +22,8 @@ export default {
   components: {
     VInput,
   },
+
+  inheritAttrs: false,
 
   props: {
     errorHandler: {
@@ -43,52 +40,38 @@ export default {
       type: String,
       default: '',
     },
+
+    userInput: {
+      type: String,
+      default: '',
+    },
   },
 
   data: _ => ({
-    userInput: '',
+    updatedInput: '',
   }),
 
   computed: {
     error() {
-      if (this.errorHandler) return errorHandler(this.userInput)
+      if (this.errorHandler) return errorHandler(this.updatedInput)
     },
   },
 
   watch: {
-    userInput() {
-      this.$emit('inputChanged', this.userInput)
-    }
-  },
-
-  methods: {
-    clearSearch() {
-      this.userInput = ''
+    updatedInput() {
+      this.$emit('inputChanged', this.updatedInput)
     },
   },
+
+  updated() {
+    // Hack to allow parent to force-edit `this.updatedInput` where it normally wouldn't because `this.userInput` looks unchanged
+    this.updatedInput = this.userInput
+  }
 }
 </script>
 
 <style lang="scss">
 .VField {
   position: relative;
-
-  .VInput {
-    .input {
-      padding: 0 1.6rem 0 1rem;
-    }
-  }
-
-  .btnClear {
-    position: absolute;
-    left: calc(100% - 1.4rem);
-    bottom: 13px;
-    background: #fff;
-    color: $colorsTextLight;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 </style>

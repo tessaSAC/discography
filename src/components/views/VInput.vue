@@ -27,15 +27,19 @@ export default {
 <style lang="scss">
 .VInput {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   .label {
     width: 100%;
+    height: 0.8rem;
     display: block;
     margin-bottom: 9px;
   }
 
   .error {
     width: 100%;
+    height: 0.8rem;
     margin-top: 6px;
     @extend %typeCaption;
     color: $colorsLove;

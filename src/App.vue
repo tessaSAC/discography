@@ -38,7 +38,6 @@ import SingleGame from './components/containers/SingleGame'
 import VDropdown from './components/views/VDropdown'
 import VGameCard from './components/views/VGameCard'
 
-
 export default {
   name: 'app',
 
@@ -154,7 +153,7 @@ export default {
 }
 
 .RangeYear {
-  width: 180px;
+  width: 192px;
 }
 
 .VDropdown {
