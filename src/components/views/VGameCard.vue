@@ -1,7 +1,7 @@
 <template>
 <div
   class="VGameCard"
-  :class="{ selected: selected }"
+  :class="[ selected ? 'selected' : 'deselected' ]"
   @click="$emit('gameSelected', id)"
 >
   <VRatings
@@ -71,6 +71,24 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'src/styles/mixins';
+
+// Styles for animation:
+// Note: `extend` doesn't work in animation
+@mixin cardDown() {
+  position: inherit;
+  left: 0;
+  top: 0;
+  box-shadow: 5px 6px 7px 0px $colorsTextLight;
+}
+@mixin cardUp() {
+  position: relative;
+  left: -13px;
+  top: -14px;
+  box-shadow: 18px 20px 10px 0px $colorsTextLight;
+}
+
+// Styles
 .VGameCard {
   height: 180px;
   display: flex;
@@ -85,10 +103,14 @@ export default {
   }
 
   &.selected {
-    position: relative;
-    left: -13px;
-    top: -14px;
-    box-shadow: 18px 20px 10px 0px $colorsTextLight;
+    @include cardUp();
+    @include anim();
+    animation-name: popUp;
+  }
+
+  &.deselected {
+    @include anim();
+    animation-name: setDown;
   }
 
   .divider {
@@ -104,6 +126,25 @@ export default {
     overflow-y: auto;
     @extend %typeParagraph;
     color: $colorsText;
+  }
+
+  // Animations:
+  @keyframes popUp {
+    0% {
+      @include cardDown();
+    }
+    100% {
+      @include cardUp();
+    }
+  }
+
+  @keyframes setDown {
+    0% {
+      @include cardUp();
+    }
+    100% {
+      @include cardDown();
+    }
   }
 }
 </style>

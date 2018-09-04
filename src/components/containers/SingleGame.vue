@@ -2,7 +2,7 @@
 <div class="SingleGame">
   <div
     v-if="id"
-    :class="[ 'overEasy', addAnimation ? 'fadeIn' : '' ]"
+    :class="[ addAnimation ? 'fadeIn' : '' ]"
     @animationend="removeAnimation"
   >
 
@@ -89,12 +89,13 @@ export default {
   methods: {
     removeAnimation() {
       this.addAnimation = false
-    }
+    },
   },
 }
 </script>
 
 <style lang="scss">
+@import 'src/styles/mixins';
 $coverLength: 210px;
 
 .SingleGame {
@@ -114,12 +115,7 @@ $coverLength: 210px;
     }
   }
 
-  // Transitions:
-  .overEasy {
-    animation-duration: 0.3s;
-    animation-timing-function: ease-in;
-  }
-
+  // Animations:
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -132,6 +128,7 @@ $coverLength: 210px;
   }
 
   .fadeIn {
+    @include anim();
     animation-name: fadeIn;
   }
 }

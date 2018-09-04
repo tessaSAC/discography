@@ -37,3 +37,4 @@ TODO:
 - normalize and variablize all margin and font sizes
   - update wireframes accordingly
 - either reduce padding in Inputs or reduce margin-left on dropdown in wireframes
+- check if animations do indeed look smoother with ease-out only

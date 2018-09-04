@@ -80,7 +80,7 @@ export default {
     align-items: center;
 
     h1 {
-      min-width: 280px;  // hack to force ratings to next row in SingleGame
+      min-width: 280px; // hack to force ratings to next row in SingleGame
     }
   }
   .rowBottom {

@@ -66,7 +66,7 @@ export default {
   updated() {
     // Hack to allow parent to force-edit `this.updatedInput` where it normally wouldn't because `this.userInput` looks unchanged
     this.updatedInput = this.userInput
-  }
+  },
 }
 </script>
 

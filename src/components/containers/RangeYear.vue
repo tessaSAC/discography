@@ -46,18 +46,22 @@ export default {
   computed: {
     error() {
       // Theoretically a user can make an open-ended request but let's not go there...
-      if (this.to && this.from && this.to < this.from) return 'Reverse time-travel not allowed'
+      if (this.to && this.from && this.to < this.from)
+        return 'Reverse time-travel not allowed'
     },
   },
 
   methods: {
     fetchGames() {
-      if(!this.error) console.log('make the api call here')
+      if (!this.error) console.log('make the api call here')
     },
 
     updateInput(n, which) {
-      this[which] = n.toString().replace(/\D/g,'').slice(0, 4)
-    }
+      this[which] = n
+        .toString()
+        .replace(/\D/g, '')
+        .slice(0, 4)
+    },
   },
 }
 </script>
@@ -65,7 +69,6 @@ export default {
 <style lang="scss">
 .RangeYear {
   .VInput {
-
     .inputs {
       display: flex;
       flex-direction: row;
