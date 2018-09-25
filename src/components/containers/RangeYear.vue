@@ -12,7 +12,7 @@
         @inputChanged="updateInput($event, 'from')"
         @keyup.native.enter="fetchGames"
       />
-      <!-- TODO: Is min and max required? They weren't in the wireframes. -->
+      <!-- TODO: Is min and max required? They weren't in the wireframes. Let's take it out, idk how the API will handle this yet.-->
 
       <div class="labelTo">to</div>
 

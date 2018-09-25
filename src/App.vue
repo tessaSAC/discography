@@ -121,7 +121,7 @@ export default {
 #app {
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: row;
 }
@@ -141,6 +141,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 36px;
 }
 
 .FieldSearch {
@@ -153,7 +154,7 @@ export default {
 }
 
 .RangeYear {
-  width: 192px;
+  width: 165px;
 }
 
 .VDropdown {

@@ -6,13 +6,13 @@
     @focus="openDropdown"
     @blur="closeDropdown"
   >
-    <div :class="ddClassObject">  <!-- TODO: Does this need to be a separate div? -->
+    <div :class="ddClassObject">  <!-- TODO: Does this need to be a separate div? Yes -->
       <div :class="{ 'selectedOption': true, 'isPlaceholder': isPlaceholder }">
         {{ options[selectedOption] }}
       </div>
     </div>
 
-    <div v-if="ddIsOpen" class="dropdownPanel">  <!-- TODO: Does this need to be a separate div? -->
+    <div v-if="ddIsOpen" class="dropdownPanel">  <!-- TODO: Does this need to be a separate div? Yes -->
       <ul>
         <li v-if="placeholder" class="dropdownOption disabled">{{ placeholder }}</li>
         <li class="dropdownOption" v-for="optionValue in Object.keys(options)" :key="optionValue" @click="selectOption(optionValue)">{{
@@ -41,7 +41,7 @@ export default {
 
   props: {
     // options: {
-    //   type: Object,  // TODO: why Object?
+    //   type: Object,  // TODO: why Object? We need a value-label map 
     // },
     // placeholder: {
     //   type: String,
@@ -62,7 +62,7 @@ export default {
 
     options: {
       gameTitle: 'Game title (A to Z)',
-      releaseDate: 'Release date (Newest to oldest)',
+      releaseDate: 'Recently released',
     },
   }),
 
@@ -85,17 +85,16 @@ export default {
 
   mounted() {
     // TODO: This does not belong in mounted
-    this.selectedOption = this.default // TODO: Remove nested ternary exp if possible
+    this.selectedOption = this.default // TODO: Remove nested ternary exp if possible. It's possbile, but why?
       ? this.default
-      : this.placeholder
-        ? this.placeholder
-        : ''
+      : ( this.placeholder ? this.placeholder : '' )
   },
 
   methods: {
+    //Force dropdown divs to blur
     blurDropdown() {
       this.$el.querySelector('.dropdown').blur() // TODO: this is suspicious
-      this.$el.querySelector('.dropdownContainer').blur() // what is going on here?
+      this.$el.querySelector('.dropdownContainer').blur() // what is going on here? I'm forcing the dropdown divs to blur.
     },
 
     closeDropdown() {
@@ -121,7 +120,7 @@ export default {
   width: 100%;
 
   .force_hide {
-    display: none !important; // TODO: why do you need !important
+    display: none !important; // TODO: why do you need !important? To enforce it and reduce the chances of it from being overwritten accidentally. 
   }
 
   .boxField {
@@ -161,6 +160,7 @@ export default {
     }
 
     .dropdownPanel {
+      z-index: 100;
       width: 100%;
       position: absolute;
       top: 32px;
@@ -169,6 +169,10 @@ export default {
       border-radius: 4px;
       box-shadow: 0px 1px 4px 0px $colorsTextLight;
 
+      ul {
+        padding: 0px;
+        margin: 12px 0px;
+      }
       li {
         @extend %typeParagraph;
         list-style: none;

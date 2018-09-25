@@ -96,7 +96,7 @@ export default {
   background: $colorsPaper;
   border-radius: 4px;
   box-shadow: 5px 6px 7px 0px $colorsTextLight;
-  padding: 18px 24px;
+  padding: 18px 24px 0px;
 
   & + .VGameCard {
     margin-top: 24px;

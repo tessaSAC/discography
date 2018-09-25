@@ -13,8 +13,11 @@ $colorsLove: #e55d5d;
 @import 'src/styles/typographyExtends';
 $typeFontFamily: Arial;
 
-body {
+html {
   font-size: 14px;
+}
+
+body {
   color: $colorsTextHeavy;
   font-family: $typeFontFamily, sans-serif;
 }
