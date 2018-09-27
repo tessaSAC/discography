@@ -15,7 +15,7 @@
     <div v-if="ddIsOpen" class="dropdownPanel">  <!-- TODO: Does this need to be a separate div? Yes -->
       <ul>
         <li v-if="placeholder" class="dropdownOption disabled">{{ placeholder }}</li>
-        <li class="dropdownOption" v-for="optionValue in Object.keys(options)" :key="optionValue" @click="selectOption(optionValue)">{{
+        <li :class="{ 'dropdownOption': true, 'selectedOption': optionValue === selectedOption }" v-for="optionValue in Object.keys(options)" :key="optionValue" @click="selectOption(optionValue)">{{
           options[optionValue] }}</li>
       </ul>
     </div>
@@ -24,7 +24,7 @@
   <select class="force_hide">
     <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
 
-    <option v-for="optionValue in Object.keys(options)" :key="optionValue" value="optionValue">
+    <option :selected="optionValue === selectedOption" v-for="optionValue in Object.keys(options)" :key="optionValue" value="optionValue">
       {{ options[optionValue] }}
     </option>
   </select>
@@ -40,17 +40,17 @@ export default {
   },
 
   props: {
-    // options: {
-    //   type: Object,  // TODO: why Object? We need a value-label map 
-    // },
-    // placeholder: {
-    //   type: String,
-    //   default: '',
-    // },
-    // default: {  // Why come up with original name instead of using HTML name ('selected')?
-    //   type: String,  // So this is String but options are Object? API is unclear
-    //   required: false,
-    // },
+    options: {
+      type: Object,  // TODO: why Object? We need a value-label map 
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+    selected: {  // Why come up with original name instead of using HTML name ('selected')?
+      type: String,  // So this is String but options are Object? API is unclear
+      required: false,
+    },
   },
 
   data: _ => ({
@@ -60,10 +60,10 @@ export default {
 
     sortBy: 'gameTitle',
 
-    options: {
-      gameTitle: 'Game title (A to Z)',
-      releaseDate: 'Recently released',
-    },
+    // options: {
+    //   gameTitle: 'Game title (A to Z)',
+    //   releaseDate: 'Recently released',
+    // },
   }),
 
   computed: {
@@ -82,11 +82,10 @@ export default {
       }
     },
   },
-
   mounted() {
     // TODO: This does not belong in mounted
-    this.selectedOption = this.default // TODO: Remove nested ternary exp if possible. It's possbile, but why?
-      ? this.default
+    this.selectedOption = this.selected // TODO: Remove nested ternary exp if possible. It's possbile, but why?
+      ? this.selected
       : ( this.placeholder ? this.placeholder : '' )
   },
 
@@ -154,7 +153,7 @@ export default {
       }
     }
 
-    .selectedOption {
+    div.selectedOption {
       margin-top: 7px;
       width: auto;
     }
@@ -181,6 +180,10 @@ export default {
         &:hover {
           background-color: $colorsPaper;
           cursor: pointer;
+        }
+
+        &.selectedOption {
+          background-color: $colorsPaper;
         }
       }
     }

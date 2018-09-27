@@ -8,7 +8,7 @@
       />
       <div class="filters">
         <RangeYear />
-        <VDropdown />
+        <VDropdown :options="dropdownOptions" selected="gameTitle"/>
       </div>
     </div>
 
@@ -37,7 +37,7 @@ import RangeYear from './components/containers/RangeYear'
 import SingleGame from './components/containers/SingleGame'
 import VDropdown from './components/views/VDropdown'
 import VGameCard from './components/views/VGameCard'
-
+import igdb from './api.js'
 export default {
   name: 'app',
 
@@ -53,34 +53,42 @@ export default {
     games: [],
 
     idSelected: NaN,
+
+    dropdownOptions: {
+      gameTitle: 'Game title (A to Z)',
+      releaseDate: 'Recently released',
+    },
   }),
 
   created() {
     // Seed games
-    const fakeGames = [
-      {
-        id: 1,
-        name: 'Hatoful Boyfriend Holiday Star',
-        first_release_date: 1450137600000,
-        hypes: 34,
-        rating: 53,
-        rating_count: 5,
-        summary:
-          'The birds of Hatoful Boyfriend are back in the remastered holiday-themed sequel Hatoful Boyfriend: Holiday Star. Travel to out-there worlds, meet interesting new chickadees, and find romance in the elegantly designed winter wonderlands.',
-      },
-      {
-        id: 2,
-        name: 'The Last of Us',
-        first_release_date: 1371182400000,
-        hypes: 938,
-        rating: 95,
-        rating_count: 98,
-        summary:
-          'Twenty years after a pandemic radically transformed known civilization, infected humans run amuck and survivors kill one another for sustenance and weapons - literally whatever they can get their hands on. Joel, a salty survivor, is hired to smuggle a fourteen-year-old girl, Ellie, out of a rough military quarantine, but what begins as a simple job quickly turns into a brutal journey across the country.',
-      },
-    ]
+    window.igdb = igdb;
+    igdb.list().then(x => console.log(x));
 
-    fakeGames.forEach(game => this.games.push(game))
+    // const fakeGames = [
+    //   {
+    //     id: 1,
+    //     name: 'Hatoful Boyfriend Holiday Star',
+    //     first_release_date: 1450137600000,
+    //     hypes: 34,
+    //     rating: 53,
+    //     rating_count: 5,
+    //     summary:
+    //       'The birds of Hatoful Boyfriend are back in the remastered holiday-themed sequel Hatoful Boyfriend: Holiday Star. Travel to out-there worlds, meet interesting new chickadees, and find romance in the elegantly designed winter wonderlands.',
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'The Last of Us',
+    //     first_release_date: 1371182400000,
+    //     hypes: 938,
+    //     rating: 95,
+    //     rating_count: 98,
+    //     summary:
+    //       'Twenty years after a pandemic radically transformed known civilization, infected humans run amuck and survivors kill one another for sustenance and weapons - literally whatever they can get their hands on. Joel, a salty survivor, is hired to smuggle a fourteen-year-old girl, Ellie, out of a rough military quarantine, but what begins as a simple job quickly turns into a brutal journey across the country.',
+    //   },
+    // ]
+
+    // fakeGames.forEach(game => this.games.push(game))
 
     // const headers = new Headers()
     // headers.append('user-key', '99453e0146457eeb1ab3119be98ec0d2')
@@ -128,6 +136,7 @@ export default {
 
 .gamesList {
   padding: 0px 72px;
+  flex: 1;
 }
 
 .filterBar {

@@ -23,7 +23,8 @@ var http = axios.create({
      * register for a key. After signing up it will give you an api or as
      * they state a "user-key". If there are any issues please reach out as soon as you run into issues
      **/
-    'user-key': '418b95d2f972c7d0b1135e53806a94b5'
+    'user-key': '418b95d2f972c7d0b1135e53806a94b5',
+    "Access-Control-Allow-Origin": "*",
   }
 })
 
