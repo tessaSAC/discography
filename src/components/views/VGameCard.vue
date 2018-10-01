@@ -39,12 +39,12 @@ export default {
 
     numRatings: {
       type: Number,
-      required: true,
+      required: false,
     },
 
     rating: {
       type: Number,
-      required: true,
+      required: false,
     },
 
     releaseDate: {

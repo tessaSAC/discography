@@ -33,48 +33,48 @@ export default {
   props: {
     hypes: {
       type: Number,
-      required: true,
+      // required: true,
     },
 
     id: {
       type: Number,
-      required: true,
+      // required: true,
     },
 
     numRatings: {
       type: Number,
-      required: true,
+      // required: true,
     },
 
     rating: {
       type: Number,
-      required: true,
+      // required: true,
     },
 
     releaseDate: {
       type: Number,
-      required: true,
+      // required: true,
     },
 
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
 
     imgUrl: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
 
   data: _ => ({
     addAnimation: false,
-    hypes: 0,
-    imgUrl: '',
-    numRatings: 0,
-    rating: 0,
-    releaseDate: 0,
-    title: '',
+    // hypes: 0,
+    // imgUrl: '',
+    // numRatings: 0,
+    // rating: 0,
+    // releaseDate: 0,
+    // title: '',
   }),
 
   // watch: {

@@ -58,7 +58,7 @@ export default {
     ddIsDisabled: false, // Wireframes don't specify this?
     selectedOption: '',
 
-    sortBy: 'gameTitle',
+    // sortBy: 'gameTitle',
 
     // options: {
     //   gameTitle: 'Game title (A to Z)',
@@ -110,6 +110,11 @@ export default {
       this.closeDropdown()
     },
   },
+  watch: {
+    selectedOption: function(current, prev){
+      this.$emit('dropdownValueChanged', this.selectedOption)
+    }
+  }
 }
 </script>
 

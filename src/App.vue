@@ -7,8 +7,8 @@
         placeholder="Search for games"
       />
       <div class="filters">
-        <RangeYear />
-        <VDropdown :options="dropdownOptions" selected="gameTitle"/>
+        <RangeYear @yearFilterChanged="applyYearFilter(...arguments)"/>
+        <VDropdown :options="dropdownOptions" selected="gameTitle" @dropdownValueChanged="applySort(...arguments)"/>
       </div>
     </div>
 
@@ -61,6 +61,12 @@ export default {
     games: [],
 
     idSelected: NaN,
+    
+    startYear: '',
+
+    endYear: '',
+
+    orderBy: 'gameTitle',
 
     dropdownOptions: {
       gameTitle: 'Game title (A to Z)',
@@ -70,7 +76,7 @@ export default {
 
   created() {
     // Seed games
-    igdb.list('', '1999', '2002').then(result => {
+    igdb.list('', '2017-01-01', '2017-12-31').then(result => {
       const x = result.map(element => igdb.get(element.id))
       Promise.all(x).then(res => res.forEach(game => this.games.push(game)))
     })
@@ -87,6 +93,26 @@ export default {
   methods: {
     searchTermChanged() {
       //filterGames(searchTerm);
+    },
+    applyFilter(){
+      igdb.list('', this.startYear, this.endYear, '*', this.orderBy).then(result => {
+        const x = result.map(element => igdb.get(element.id))
+        this.games = [];
+        Promise.all(x).then(res => res.forEach(game => this.games.push(game)))
+      })
+    },
+    applyYearFilter(){
+      this.startYear = arguments[0] ? (arguments[0] + '-01-01') : ''
+      this.endYear = arguments[1] ? (arguments[1] + '-12-31') : ''
+      this.applyFilter();
+    },
+    applySort(){
+      if (arguments[0] === 'gameTitle'){
+        this.orderBy = 'name:desc'
+      }else if (arguments[0] === 'releaseDate'){
+        this.orderBy = 'date:desc'
+      }
+      this.applyFilter();
     },
     // filterGames(searchTerm) {
     //   //filters the list of games
@@ -141,5 +167,9 @@ export default {
 .VDropdown {
   margin-left: 16px;
   width: 192px;
+}
+
+.VGameCard:last-of-type {
+  margin-bottom: 72px;
 }
 </style>

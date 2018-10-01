@@ -41,12 +41,13 @@ export default {
   data: _ => ({
     from: '',
     to: '',
+    timeout: null,
   }),
 
   computed: {
     error() {
       // Theoretically a user can make an open-ended request but let's not go there...
-      if (this.to && this.from && this.to < this.from)
+      if (this.to && this.from && +this.to < +this.from)
         return 'Reverse time-travel not allowed'
     },
   },
@@ -62,7 +63,24 @@ export default {
         .replace(/\D/g, '')
         .slice(0, 4)
     },
+    emitYearChanges(from, to){
+      this.$emit('yearFilterChanged', from, to)
+    }
   },
+  watch: {
+    from: function (current, prev){
+      if(!(this.to && this.to < this.from)){
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout( this.emitYearChanges, 1000, current, this.to )
+      }
+    },
+    to: function (current, prev){
+      if(!(this.from && this.to < this.from)){
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout( this.emitYearChanges, 1000, this.from, current )
+      }
+    }
+  }
 }
 </script>
 
