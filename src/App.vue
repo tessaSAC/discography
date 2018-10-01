@@ -13,21 +13,29 @@
     </div>
 
     <VGameCard
-      v-for="({ id, name, first_release_date, hypes, rating, rating_count, summary }) in games"
+      v-for="({ id, name, created_at, popularity, esrb, rating_count, summary }) in games"
       :key="id"
       :id="id"
       :title="name"
-      :hypes="hypes"
+      :hypes="popularity"
       :numRatings="rating_count"
       :rating="rating"
-      :releaseDate="first_release_date"
+      :releaseDate="created_at"
       :selected="idSelected === id"
       :summary="summary"
       @gameSelected="id => idSelected = id"
     />
   </div>
 
-  <SingleGame :id="idSelected" />
+  <SingleGame
+    :id="selectedGame.id"
+    :title="selectedGame.name"
+    :hypes="selectedGame.popularity"
+    :numRatings="selectedGame.rating_count"
+    :rating="selectedGame.rating"
+    :releaseDate="selectedGame.created_at"
+    :imgUrl="selectedGame.cover ? selectedGame.cover.url : ''"
+  />
 </div>
 </template>
 
@@ -62,62 +70,24 @@ export default {
 
   created() {
     // Seed games
-    window.igdb = igdb;
-    igdb.list().then(x => console.log(x));
-
-    // const fakeGames = [
-    //   {
-    //     id: 1,
-    //     name: 'Hatoful Boyfriend Holiday Star',
-    //     first_release_date: 1450137600000,
-    //     hypes: 34,
-    //     rating: 53,
-    //     rating_count: 5,
-    //     summary:
-    //       'The birds of Hatoful Boyfriend are back in the remastered holiday-themed sequel Hatoful Boyfriend: Holiday Star. Travel to out-there worlds, meet interesting new chickadees, and find romance in the elegantly designed winter wonderlands.',
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'The Last of Us',
-    //     first_release_date: 1371182400000,
-    //     hypes: 938,
-    //     rating: 95,
-    //     rating_count: 98,
-    //     summary:
-    //       'Twenty years after a pandemic radically transformed known civilization, infected humans run amuck and survivors kill one another for sustenance and weapons - literally whatever they can get their hands on. Joel, a salty survivor, is hired to smuggle a fourteen-year-old girl, Ellie, out of a rough military quarantine, but what begins as a simple job quickly turns into a brutal journey across the country.',
-    //   },
-    // ]
-
-    // fakeGames.forEach(game => this.games.push(game))
-
-    // const headers = new Headers()
-    // headers.append('user-key', '99453e0146457eeb1ab3119be98ec0d2')
-    // headers.append('Accept', 'application/json')
-    // headers.append('Content-Type', 'application/json')
-    // fetch(
-    //   'https://api-endpoint.igdb.com/games/?fields=id,name,first_release_date,developers,hypes,rating,rating_count,summary&order=name:asc',
-    //   {
-    //     mode: 'no-cors',
-    //     headers: headers,
-    //   }
-    // )
-    //   // fetch('https://api-endpoint.igdb.com/headers/', {
-    //   //   method: 'post',
-    //   //   body: {
-    //   //     "api_header": {
-    //   //         "header": headers,
-    //   //         "value": "localhost:8080",
-    //   //     }
-    //   //   },
-    //   // })
-    //   .then(res => console.log(JSON.stringify(res, null, 2)))
+    igdb.list('', '1999', '2002').then(result => {
+      const x = result.map(element => igdb.get(element.id))
+      Promise.all(x).then(res => res.forEach(game => this.games.push(game)))
+    })
   },
-
+  computed: {
+    selectedGame() {
+      if (this.idSelected) {
+        return this.games.filter(game => game.id === this.idSelected)[0]
+      } else {
+        return {}
+      }
+    },
+  },
   methods: {
     searchTermChanged() {
       //filterGames(searchTerm);
     },
-
     // filterGames(searchTerm) {
     //   //filters the list of games
     // },
@@ -160,6 +130,8 @@ export default {
 .SingleGame {
   min-width: 480px; // needs to be `min-width` b/c flex messes with `widths`
   background: $colorsPaper;
+  position: sticky;
+  top: 0px;
 }
 
 .RangeYear {

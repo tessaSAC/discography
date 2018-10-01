@@ -126,6 +126,8 @@ export default {
     overflow-y: auto;
     @extend %typeParagraph;
     color: $colorsText;
+    flex: 1;
+    width: 100%;
   }
 
   // Animations:
