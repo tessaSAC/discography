@@ -14,7 +14,7 @@
     </div>
 
     <VGameCard
-      v-for="({ id, name, created_at, popularity, esrb, rating_count, summary }) in games"
+      v-for="({ id, name, created_at, popularity, esrb, rating_count, rating, summary }) in games"
       :key="id"
       :id="id"
       :title="name"
@@ -85,11 +85,11 @@ export default {
   },
   computed: {
     selectedGame() {
+      let gameMatch
       if (this.idSelected) {
-        return this.games.filter(game => game.id === this.idSelected)[0]
-      } else {
-        return {}
+        gameMatch = this.games.filter(game => game.id === this.idSelected)[0]
       }
+      return gameMatch ? gameMatch : {}
     },
   },
   methods: {
@@ -101,10 +101,12 @@ export default {
       igdb.list( this.searchTerm, this.startYear, this.endYear, '*', this.orderBy ).then( result => {  
         const x = result.map(element => igdb.get(element.id))
         this.games = [];
-        Promise.all(x).then( res => res.forEach(game => {
-          game.popularity = game.popularity ? +parseFloat(game.popularity).toFixed(2) : 0  
-          this.games.push( game )
-        }))
+        Promise.all(x).then( res => {
+          res.forEach(game => {
+            game.popularity = game.popularity ? +parseFloat(game.popularity).toFixed(2) : 0  
+            this.games.push( game )
+          })
+        })
       })
       console.log('Fetching list...')
     },
