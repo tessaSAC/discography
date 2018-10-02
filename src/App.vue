@@ -69,7 +69,7 @@ export default {
 
     searchTerm: '',
 
-    orderBy: 'gameTitle',
+    orderBy: 'name:desc',
 
     filterTimeout: null,
 
@@ -81,10 +81,7 @@ export default {
 
   created() {
     // Seed games
-    igdb.list('', '2017-01-01', '2017-12-31').then(result => {
-      const x = result.map(element => igdb.get(element.id))
-      Promise.all(x).then(res => res.forEach(game => this.games.push(game)))
-    })
+    this.fetchNewGamesList();
   },
   computed: {
     selectedGame() {
@@ -100,17 +97,21 @@ export default {
       //filterGames(searchTerm);
     },
 
-    fetchNewGamesList(query, gte, lte, fields, sortOrder){
-      igdb.list(query, gte, lte, fields, sortOrder).then(result => {  
+    fetchNewGamesList(){
+      igdb.list( this.searchTerm, this.startYear, this.endYear, '*', this.orderBy ).then( result => {  
         const x = result.map(element => igdb.get(element.id))
         this.games = [];
-        Promise.all(x).then(res => res.forEach(game => this.games.push(game)))
+        Promise.all(x).then( res => res.forEach(game => {
+          game.popularity = game.popularity ? +parseFloat(game.popularity).toFixed(2) : 0  
+          this.games.push( game )
+        }))
       })
+      console.log('Fetching list...')
     },
 
     applyFilter(){
       clearTimeout(this.filterTimeout)
-      this.filterTimeout = setTimeout( this.fetchNewGamesList, 500, this.searchTerm, this.startYear, this.endYear, '*', this.orderBy )
+      this.filterTimeout = setTimeout( this.fetchNewGamesList, 500 )
     },
     applyYearFilter(){
       this.startYear = arguments[0] ? (arguments[0] + '-01-01') : ''
@@ -118,12 +119,16 @@ export default {
       this.applyFilter();
     },
     applySort(){
+      let newSort = ''
       if (arguments[0] === 'gameTitle'){
-        this.orderBy = 'name:desc'
+        newSort = 'name:desc'
       }else if (arguments[0] === 'releaseDate'){
-        this.orderBy = 'date:desc'
+        newSort = 'date:desc'
       }
-      this.applyFilter();
+      if(this.orderBy !== newSort){
+        this.orderBy = newSort
+        this.applyFilter();
+      } 
     },
     applySearchTerm(){
       this.searchTerm = arguments[0];
