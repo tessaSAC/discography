@@ -59,7 +59,7 @@ export default {
 
     summary: {
       type: String,
-      required: true,
+      required: false,
     },
 
     title: {

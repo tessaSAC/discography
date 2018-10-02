@@ -71,13 +71,13 @@ export default {
     from: function (current, prev){
       if(!(this.to && this.to < this.from)){
         clearTimeout(this.timeout)
-        this.timeout = setTimeout( this.emitYearChanges, 1000, current, this.to )
+        this.timeout = setTimeout( this.emitYearChanges, 500, current, this.to )
       }
     },
     to: function (current, prev){
       if(!(this.from && this.to < this.from)){
         clearTimeout(this.timeout)
-        this.timeout = setTimeout( this.emitYearChanges, 1000, this.from, current )
+        this.timeout = setTimeout( this.emitYearChanges, 500, this.from, current )
       }
     }
   }

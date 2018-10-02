@@ -5,6 +5,7 @@
       <FieldSearch
         label="Search"
         placeholder="Search for games"
+        @searchTermChanged="applySearchTerm(...arguments)"
       />
       <div class="filters">
         <RangeYear @yearFilterChanged="applyYearFilter(...arguments)"/>
@@ -66,7 +67,11 @@ export default {
 
     endYear: '',
 
+    searchTerm: '',
+
     orderBy: 'gameTitle',
+
+    filterTimeout: null,
 
     dropdownOptions: {
       gameTitle: 'Game title (A to Z)',
@@ -94,12 +99,18 @@ export default {
     searchTermChanged() {
       //filterGames(searchTerm);
     },
-    applyFilter(){
-      igdb.list('', this.startYear, this.endYear, '*', this.orderBy).then(result => {
+
+    fetchNewGamesList(query, gte, lte, fields, sortOrder){
+      igdb.list(query, gte, lte, fields, sortOrder).then(result => {  
         const x = result.map(element => igdb.get(element.id))
         this.games = [];
         Promise.all(x).then(res => res.forEach(game => this.games.push(game)))
       })
+    },
+
+    applyFilter(){
+      clearTimeout(this.filterTimeout)
+      this.filterTimeout = setTimeout( this.fetchNewGamesList, 500, this.searchTerm, this.startYear, this.endYear, '*', this.orderBy )
     },
     applyYearFilter(){
       this.startYear = arguments[0] ? (arguments[0] + '-01-01') : ''
@@ -114,6 +125,10 @@ export default {
       }
       this.applyFilter();
     },
+    applySearchTerm(){
+      this.searchTerm = arguments[0];
+      this.applyFilter();
+    }
     // filterGames(searchTerm) {
     //   //filters the list of games
     // },
@@ -155,6 +170,7 @@ export default {
 
 .SingleGame {
   min-width: 480px; // needs to be `min-width` b/c flex messes with `widths`
+  flex:0;
   background: $colorsPaper;
   position: sticky;
   top: 0px;
