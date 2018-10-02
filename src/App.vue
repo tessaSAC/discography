@@ -69,7 +69,7 @@ export default {
 
     searchTerm: '',
 
-    orderBy: 'name:desc',
+    orderBy: 'name:asc',
 
     filterTimeout: null,
 
@@ -123,9 +123,9 @@ export default {
     applySort(){
       let newSort = ''
       if (arguments[0] === 'gameTitle'){
-        newSort = 'name:desc'
+        newSort = 'name:asc'
       }else if (arguments[0] === 'releaseDate'){
-        newSort = 'date:desc'
+        newSort = 'release_dates.date:desc'
       }
       if(this.orderBy !== newSort){
         this.orderBy = newSort
