@@ -53,6 +53,9 @@ export default {
   mounted(){
     this.updatedInput = this.userInput
   },
+  updated(){
+    this.updatedInput = this.userInput
+  },
   computed: {
     error() {
       if (this.errorHandler) return errorHandler(this.updatedInput)

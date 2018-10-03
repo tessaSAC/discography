@@ -11,6 +11,7 @@
         type="number"
         @inputChanged="updateInput($event, 'from')"
         @keyup.native.enter="fetchGames"
+        @keydown.native="checkKey($event, 'from')"
       />
       <!-- TODO: Is min and max required? They weren't in the wireframes. Let's take it out, idk how the API will handle this yet.-->
 
@@ -22,6 +23,7 @@
         type="number"
         @inputChanged="updateInput($event, 'to')"
         @keyup.native.enter="fetchGames"
+        @keydown.native="checkKey($event, 'to')"
       />
     </div>
   </VInput>
@@ -53,19 +55,24 @@ export default {
   },
 
   methods: {
+    checkKey(e, which){
+      if( [69,187,189].includes(e.keyCode) | (e.key.match(/\d/gim) && this[which].length >= 4) ){
+        e.preventDefault()
+      }
+    },
+    emitYearChanges(from, to){
+      this.$emit('yearFilterChanged', from, to)
+    },
     fetchGames() {
       if (!this.error) console.log('make the api call here')
     },
-
+    //handles pasting
     updateInput(n, which) {
       this[which] = n
         .toString()
         .replace(/\D/g, '')
         .slice(0, 4)
     },
-    emitYearChanges(from, to){
-      this.$emit('yearFilterChanged', from, to)
-    }
   },
   watch: {
     from: function (current, prev){
