@@ -72,28 +72,22 @@ export default {
       type: Number,
     },
   },
-  created() {
+  created(){
     this.fetchNewGamesList()
-    this.idSelected
-      ? (this.selectedGameId = this.idSelected)
-      : (this.selectedGameId = NaN)
+    this.idSelected ? this.selectedGameId = this.idSelected : this.selectedGameId = NaN
   },
   computed: {
     selectedGame() {
       let gameMatch
       if (this.selectedGameId) {
-        gameMatch = this.games.filter(
-          game => game.id === this.selectedGameId
-        )[0]
+        gameMatch = this.games.filter(game => game.id === this.selectedGameId)[0]
       }
       return gameMatch ? gameMatch : {}
     },
   },
   methods: {
-    handleGameCardClick() {
-      if (this.selectable) {
-        this.selectedGameId = arguments[0]
-      }
+    handleGameCardClick(){
+      if(this.selectable){ this.selectedGameId = arguments[0] }
     },
     searchTermChanged() {
       //filterGames(searchTerm);
@@ -149,8 +143,8 @@ export default {
   watch: {
     selectedGameId: function() {
       this.$emit('selectedGameChanged', this.selectedGameId, this.selectedGame)
-    },
-  },
+    }
+  }
 }
 </script>
 
