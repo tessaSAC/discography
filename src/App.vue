@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import VGameFiltersAndList from './components/views/VGameFiltersAndList'
-import SingleGame from './components/containers/SingleGame'
+import VGameFiltersAndList from './components/export/VGameFiltersAndList'
+import SingleGame from './components/export/SingleGame'
 import igdb from './api.js'
 export default {
   name: 'app',
