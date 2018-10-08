@@ -61,9 +61,7 @@ function get(id, fields) {
  */
 function list(query, startYear, endYear, fields, orderBy) {
   var params = {
-    fields: fields
-      ? fields
-      : '*',
+    fields: fields ? fields : '*',
     orderBy: orderBy ? orderBy : 'popularity:desc',
   }
 

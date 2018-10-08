@@ -41,14 +41,15 @@ export default {
 
   props: {
     options: {
-      type: Object,  // TODO: why Object? We need a value-label map 
+      type: Object, // TODO: why Object? We need a value-label map
     },
     placeholder: {
       type: String,
       default: '',
     },
-    selected: {  // Why come up with original name instead of using HTML name ('selected')?
-      type: String,  // So this is String but options are Object? API is unclear
+    selected: {
+      // Why come up with original name instead of using HTML name ('selected')?
+      type: String, // So this is String but options are Object? API is unclear
       required: false,
     },
   },
@@ -86,7 +87,9 @@ export default {
     // TODO: This does not belong in mounted
     this.selectedOption = this.selected // TODO: Remove nested ternary exp if possible. It's possbile, but why?
       ? this.selected
-      : ( this.placeholder ? this.placeholder : '' )
+      : this.placeholder
+        ? this.placeholder
+        : ''
   },
 
   methods: {
@@ -111,10 +114,10 @@ export default {
     },
   },
   watch: {
-    selectedOption: function(current, prev){
-      this.$emit('dropdownValueChanged', this.selectedOption)
-    }
-  }
+    selectedOption: function(current) {
+      this.$emit('dropdownValueChanged', current)
+    },
+  },
 }
 </script>
 
@@ -124,7 +127,7 @@ export default {
   width: 100%;
 
   .force_hide {
-    display: none !important; // TODO: why do you need !important? To enforce it and reduce the chances of it from being overwritten accidentally. 
+    display: none !important; // TODO: why do you need !important? To enforce it and reduce the chances of it from being overwritten accidentally.
   }
 
   .boxField {

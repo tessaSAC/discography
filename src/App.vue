@@ -6,6 +6,7 @@
         label="Search"
         placeholder="Search for games"
         @searchTermChanged="applySearchTerm(...arguments)"
+        :searchTerm="searchTerm"
       />
       <div class="filters">
         <RangeYear @yearFilterChanged="applyYearFilter(...arguments)"/>
@@ -62,7 +63,7 @@ export default {
     games: [],
 
     idSelected: NaN,
-    
+
     startYear: '',
 
     endYear: '',
@@ -81,7 +82,7 @@ export default {
 
   created() {
     // Seed games
-    this.fetchNewGamesList();
+    this.fetchNewGamesList()
   },
   computed: {
     selectedGame() {
@@ -97,45 +98,49 @@ export default {
       //filterGames(searchTerm);
     },
 
-    fetchNewGamesList(){
-      igdb.list( this.searchTerm, this.startYear, this.endYear, '*', this.orderBy ).then( result => {  
-        const x = result.map(element => igdb.get(element.id))
-        this.games = [];
-        Promise.all(x).then( res => {
-          res.forEach(game => {
-            game.popularity = game.popularity ? +parseFloat(game.popularity).toFixed(2) : 0  
-            this.games.push( game )
+    fetchNewGamesList() {
+      igdb
+        .list(this.searchTerm, this.startYear, this.endYear, '*', this.orderBy)
+        .then(result => {
+          const x = result.map(element => igdb.get(element.id))
+          this.games = []
+          Promise.all(x).then(res => {
+            res.forEach(game => {
+              game.popularity = game.popularity
+                ? +parseFloat(game.popularity).toFixed(2)
+                : 0
+              this.games.push(game)
+            })
           })
         })
-      })
-      console.log('Fetching list...')
+      // console.log('Fetching list...')
     },
 
-    applyFilter(){
+    applyFilter() {
       clearTimeout(this.filterTimeout)
-      this.filterTimeout = setTimeout( this.fetchNewGamesList, 500 )
+      this.filterTimeout = setTimeout(this.fetchNewGamesList, 500)
     },
-    applyYearFilter(){
-      this.startYear = arguments[0] ? (arguments[0] + '-01-01') : ''
-      this.endYear = arguments[1] ? (arguments[1] + '-12-31') : ''
-      this.applyFilter();
+    applyYearFilter() {
+      this.startYear = arguments[0] ? arguments[0] + '-01-01' : ''
+      this.endYear = arguments[1] ? arguments[1] + '-12-31' : ''
+      this.applyFilter()
     },
-    applySort(){
+    applySort() {
       let newSort = ''
-      if (arguments[0] === 'gameTitle'){
+      if (arguments[0] === 'gameTitle') {
         newSort = 'name:asc'
-      }else if (arguments[0] === 'releaseDate'){
+      } else if (arguments[0] === 'releaseDate') {
         newSort = 'release_dates.date:desc'
       }
-      if(this.orderBy !== newSort){
+      if (this.orderBy !== newSort) {
         this.orderBy = newSort
-        this.applyFilter();
-      } 
+        this.applyFilter()
+      }
     },
-    applySearchTerm(){
-      this.searchTerm = arguments[0];
-      this.applyFilter();
-    }
+    applySearchTerm() {
+      this.searchTerm = arguments[0]
+      this.applyFilter()
+    },
     // filterGames(searchTerm) {
     //   //filters the list of games
     // },
@@ -177,7 +182,7 @@ export default {
 
 .SingleGame {
   min-width: 480px; // needs to be `min-width` b/c flex messes with `widths`
-  flex:0;
+  flex: 0;
   background: $colorsPaper;
   position: sticky;
   top: 0px;

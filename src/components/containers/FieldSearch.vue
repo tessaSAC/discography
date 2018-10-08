@@ -3,6 +3,7 @@
   class="FieldSearch"
   placeholder="Find games by title"
   @inputChanged="searchTermChanged(...arguments)"
+  :userInput="searchTerm"
 />
 </template>
 
@@ -13,10 +14,15 @@ export default {
   components: {
     VField,
   },
-  methods: {
-    searchTermChanged(){
-      this.$emit('searchTermChanged', arguments[0])
+  props: {
+    searchTerm: {
+      type: String
     }
-  }
+  },
+  methods: {
+    searchTermChanged() {
+      this.$emit('searchTermChanged', arguments[0])
+    },
+  },
 }
 </script>

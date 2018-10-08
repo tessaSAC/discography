@@ -55,16 +55,19 @@ export default {
   },
 
   methods: {
-    checkKey(e, which){
-      if( [69,187,189].includes(e.keyCode) | (e.key.match(/\d/gim) && this[which].length >= 4) ){
+    checkKey(e, which) {
+      if (
+        [69, 187, 189].includes(e.keyCode) |
+        (e.key.match(/\d/gim) && this[which].length >= 4)
+      ) {
         e.preventDefault()
       }
     },
-    emitYearChanges(from, to){
+    emitYearChanges(from, to) {
       this.$emit('yearFilterChanged', from, to)
     },
     fetchGames() {
-      if (!this.error) console.log('make the api call here')
+      if (!this.error) this.emitYearChanges(this.from, this.to)
     },
     //handles pasting
     updateInput(n, which) {
@@ -75,19 +78,19 @@ export default {
     },
   },
   watch: {
-    from: function (current, prev){
-      if(!(this.to && this.to < this.from)){
+    from: function(current) {
+      if (!this.error) {
         clearTimeout(this.timeout)
-        this.timeout = setTimeout( this.emitYearChanges, 500, current, this.to )
+        this.timeout = setTimeout(this.emitYearChanges, 500, current, this.to)
       }
     },
-    to: function (current, prev){
-      if(!(this.from && this.to < this.from)){
+    to: function(current) {
+      if (!this.error) {
         clearTimeout(this.timeout)
-        this.timeout = setTimeout( this.emitYearChanges, 500, this.from, current )
+        this.timeout = setTimeout(this.emitYearChanges, 500, this.from, current)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

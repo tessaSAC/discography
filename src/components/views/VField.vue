@@ -50,15 +50,15 @@ export default {
   data: _ => ({
     updatedInput: '',
   }),
-  mounted(){
+  mounted() {
     this.updatedInput = this.userInput
   },
-  updated(){
+  updated() {
     this.updatedInput = this.userInput
   },
   computed: {
     error() {
-      if (this.errorHandler) return errorHandler(this.updatedInput)
+      if (this.errorHandler) return this.errorHandler(this.updatedInput)
     },
   },
 
@@ -67,12 +67,6 @@ export default {
       this.$emit('inputChanged', this.updatedInput)
     },
   },
-
-  // updated() {
-  //   // Hack to allow parent to force-edit `this.updatedInput` where it normally wouldn't because `this.userInput` looks unchanged
-  //   // This fails cause userInput is static, and updated is called everytime the input changes.
-  //   this.updatedInput = this.userInput
-  // },
 }
 </script>
 
