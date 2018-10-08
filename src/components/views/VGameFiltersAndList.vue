@@ -83,9 +83,9 @@ export default {
     applySort() {
       this.$emit('dropdownValueChanged', arguments[0])
     },
-    emitGameSelectionChange(){
+    emitGameSelectionChange() {
       this.$emit('gameSelected', arguments[0])
-    }
+    },
   },
 }
 </script>
