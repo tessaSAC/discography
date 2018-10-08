@@ -16,8 +16,8 @@ export default {
   },
   props: {
     searchTerm: {
-      type: String
-    }
+      type: String,
+    },
   },
   methods: {
     searchTermChanged() {

@@ -1,34 +1,17 @@
 <template>
 <div id="app">
-  <div class="gamesList">
-    <div class="filterBar">
-      <FieldSearch
-        label="Search"
-        placeholder="Search for games"
-        @searchTermChanged="applySearchTerm(...arguments)"
-        :searchTerm="searchTerm"
-      />
-      <div class="filters">
-        <RangeYear @yearFilterChanged="applyYearFilter(...arguments)"/>
-        <VDropdown :options="dropdownOptions" selected="gameTitle" @dropdownValueChanged="applySort(...arguments)"/>
-      </div>
-    </div>
-
-    <VGameCard
-      v-for="({ id, name, created_at, popularity, esrb, rating_count, rating, summary }) in games"
-      :key="id"
-      :id="id"
-      :title="name"
-      :hypes="popularity"
-      :numRatings="rating_count"
-      :rating="rating"
-      :releaseDate="created_at"
-      :selected="idSelected === id"
-      :summary="summary"
-      @gameSelected="id => idSelected = id"
-    />
-  </div>
-
+  <VGameFiltersAndList
+    :games="games"
+    :idSelected="idSelected"
+    :startYear="startYear"
+    :endYear="endYear"
+    :searchTerm="searchTerm"
+    :dropdownOptions="dropdownOptions"
+    @searchTermChanged="applySearchTerm(...arguments)"
+    @yearFilterChanged="applyYearFilter(...arguments)"
+    @dropdownValueChanged="applySort(...arguments)"
+    @gameSelected="idSelected = arguments[0]"
+  />
   <SingleGame
     :id="selectedGame.id"
     :title="selectedGame.name"
@@ -42,20 +25,14 @@
 </template>
 
 <script>
-import FieldSearch from './components/containers/FieldSearch'
-import RangeYear from './components/containers/RangeYear'
+import VGameFiltersAndList from './components/views/VGameFiltersAndList'
 import SingleGame from './components/containers/SingleGame'
-import VDropdown from './components/views/VDropdown'
-import VGameCard from './components/views/VGameCard'
 import igdb from './api.js'
 export default {
   name: 'app',
 
   components: {
-    FieldSearch,
-    RangeYear,
-    VDropdown,
-    VGameCard,
+    VGameFiltersAndList,
     SingleGame,
   },
 
@@ -157,27 +134,9 @@ export default {
   flex-direction: row;
 }
 
-.gamesList {
+.VGameFiltersAndList {
   padding: 0px 72px;
   flex: 1;
-}
-
-.filterBar {
-  padding: 24px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.filters {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 36px;
-}
-
-.FieldSearch {
-  width: 240px;
 }
 
 .SingleGame {
@@ -186,18 +145,5 @@ export default {
   background: $colorsPaper;
   position: sticky;
   top: 0px;
-}
-
-.RangeYear {
-  width: 165px;
-}
-
-.VDropdown {
-  margin-left: 16px;
-  width: 192px;
-}
-
-.VGameCard:last-of-type {
-  margin-bottom: 72px;
 }
 </style>

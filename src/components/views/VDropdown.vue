@@ -137,6 +137,7 @@ export default {
     padding: 0 1rem;
     border-radius: 4px;
     border: 1px solid $colorsTextLight;
+    box-sizing: border-box;
   }
 
   .dropdownContainer {

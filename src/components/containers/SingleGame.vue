@@ -7,7 +7,7 @@
   >
 
     <div class="gameCover">
-      <img :src="imgUrl" :alt="title">
+      <img :src="imgUrlClean" :alt="title + ' game cover'">
     </div>
 
     <VRatings
@@ -69,51 +69,12 @@ export default {
 
   data: _ => ({
     addAnimation: false,
-    // hypes: 0,
-    // imgUrl: '',
-    // numRatings: 0,
-    // rating: 0,
-    // releaseDate: 0,
-    // title: '',
   }),
-
-  // watch: {
-  //   id() {
-  //     this.addAnimation = true
-
-  //     // TODO: Replace with call to get images, etc. for this game
-  //     const games = [
-  //       {
-  //         id: 1,
-  //         name: 'Hatoful Boyfriend Holiday Star',
-  //         first_release_date: 1450155600,
-  //         hypes: 34,
-  //         imgUrl: `${this.baseUrl}testGames/hato.jpg`,
-  //         rating: 53,
-  //         rating_count: 5,
-  //       },
-  //       {
-  //         id: 2,
-  //         name: 'The Last of Us',
-  //         first_release_date: 1371182400,
-  //         hypes: 938,
-  //         imgUrl: `${this.baseUrl}testGames/tlou.jpg`,
-  //         rating: 95,
-  //         rating_count: 98,
-  //       },
-  //     ]
-
-  //     const selected = games.filter(game => game.id === this.id)[0]
-
-  //     this.title = selected.name
-  //     this.hypes = selected.hypes
-  //     this.imgUrl = selected.imgUrl
-  //     this.numRatings = selected.rating_count
-  //     this.rating = selected.rating
-  //     this.releaseDate = selected.first_release_date
-  //   },
-  // },
-
+  computed: {
+    imgUrlClean() {
+      return this.imgUrl !== null ? 'http:' + this.imgUrl : ''
+    },
+  },
   methods: {
     removeAnimation() {
       this.addAnimation = false

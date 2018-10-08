@@ -25,16 +25,19 @@ export default {
     hypes: {
       type: Number,
       required: true,
+      default: 0,
     },
 
     numRatings: {
       type: Number,
       required: false,
+      default: 0,
     },
 
     rating: {
       type: Number,
       required: false,
+      default: 0,
     },
 
     releaseDate: {
