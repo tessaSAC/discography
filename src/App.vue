@@ -1,16 +1,9 @@
 <template>
 <div id="app">
   <VGameFiltersAndList
-    :games="games"
     :idSelected="idSelected"
-    :startYear="startYear"
-    :endYear="endYear"
-    :searchTerm="searchTerm"
-    :dropdownOptions="dropdownOptions"
-    @searchTermChanged="applySearchTerm(...arguments)"
-    @yearFilterChanged="applyYearFilter(...arguments)"
-    @dropdownValueChanged="applySort(...arguments)"
-    @gameSelected="idSelected = arguments[0]"
+    selectable
+    @selectedGameChanged="setSelectedGame(...arguments)"
   />
   <SingleGame
     :id="selectedGame.id"
@@ -27,7 +20,6 @@
 <script>
 import VGameFiltersAndList from './components/export/VGameFiltersAndList'
 import SingleGame from './components/export/SingleGame'
-import igdb from './api.js'
 export default {
   name: 'app',
 
@@ -37,90 +29,15 @@ export default {
   },
 
   data: _ => ({
-    games: [],
-
     idSelected: NaN,
-
-    startYear: '',
-
-    endYear: '',
-
-    searchTerm: '',
-
-    orderBy: 'name:asc',
-
-    filterTimeout: null,
-
-    dropdownOptions: {
-      gameTitle: 'Game title (A to Z)',
-      releaseDate: 'Recently released',
-    },
+    selectedGame: {},
   }),
 
-  created() {
-    // Seed games
-    this.fetchNewGamesList()
-  },
-  computed: {
-    selectedGame() {
-      let gameMatch
-      if (this.idSelected) {
-        gameMatch = this.games.filter(game => game.id === this.idSelected)[0]
-      }
-      return gameMatch ? gameMatch : {}
-    },
-  },
   methods: {
-    searchTermChanged() {
-      //filterGames(searchTerm);
+    setSelectedGame() {
+      this.idSelected = arguments[0]
+      this.selectedGame = arguments[1]
     },
-
-    fetchNewGamesList() {
-      igdb
-        .list(this.searchTerm, this.startYear, this.endYear, '*', this.orderBy)
-        .then(result => {
-          const x = result.map(element => igdb.get(element.id))
-          this.games = []
-          Promise.all(x).then(res => {
-            res.forEach(game => {
-              game.popularity = game.popularity
-                ? +parseFloat(game.popularity).toFixed(2)
-                : 0
-              this.games.push(game)
-            })
-          })
-        })
-      // console.log('Fetching list...')
-    },
-
-    applyFilter() {
-      clearTimeout(this.filterTimeout)
-      this.filterTimeout = setTimeout(this.fetchNewGamesList, 500)
-    },
-    applyYearFilter() {
-      this.startYear = arguments[0] ? arguments[0] + '-01-01' : ''
-      this.endYear = arguments[1] ? arguments[1] + '-12-31' : ''
-      this.applyFilter()
-    },
-    applySort() {
-      let newSort = ''
-      if (arguments[0] === 'gameTitle') {
-        newSort = 'name:asc'
-      } else if (arguments[0] === 'releaseDate') {
-        newSort = 'release_dates.date:desc'
-      }
-      if (this.orderBy !== newSort) {
-        this.orderBy = newSort
-        this.applyFilter()
-      }
-    },
-    applySearchTerm() {
-      this.searchTerm = arguments[0]
-      this.applyFilter()
-    },
-    // filterGames(searchTerm) {
-    //   //filters the list of games
-    // },
   },
 }
 </script>

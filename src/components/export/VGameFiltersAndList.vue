@@ -22,9 +22,9 @@
     :numRatings="rating_count"
     :rating="rating"
     :releaseDate="created_at"
-    :selected="idSelected === id"
+    :selected="selectedGameId === id"
     :summary="summary"
-    @gameSelected="emitGameSelectionChange(id)"
+    @gameSelected="handleGameCardClick(id)"
   />
 </div>
 </template>
@@ -34,6 +34,7 @@ import FieldSearch from '../containers/FieldSearch'
 import RangeYear from '../containers/RangeYear'
 import VDropdown from '../views/VDropdown'
 import VGameCard from '../views/VGameCard'
+import igdb from '../../api.js'
 
 export default {
   components: {
@@ -42,51 +43,108 @@ export default {
     VDropdown,
     VGameCard,
   },
-  props: {
-    games: {
-      type: Array,
-    },
+  data: _ => ({
+    games: [],
 
+    selectedGameId: NaN,
+
+    startYear: '',
+
+    endYear: '',
+
+    searchTerm: '',
+
+    orderBy: 'name:asc',
+
+    filterTimeout: null,
+
+    dropdownOptions: {
+      gameTitle: 'Game title (A to Z)',
+      releaseDate: 'Recently released',
+    },
+  }),
+  props: {
+    selectable: {
+      type: Boolean,
+      default: true,
+    },
     idSelected: {
       type: Number,
     },
-
-    startYear: {
-      type: Number,
-    },
-
-    endYear: {
-      type: Number,
-    },
-
-    searchTerm: {
-      type: String,
-    },
-
-    dropdownOptions: {
-      type: Object,
-      default: () => {
-        return {
-          gameTitle: 'Game title (A to Z)',
-          releaseDate: 'Recently released',
-        }
-      },
+  },
+  created(){
+    this.fetchNewGamesList()
+    this.idSelected ? this.selectedGameId = this.idSelected : this.selectedGameId = NaN
+  },
+  computed: {
+    selectedGame() {
+      let gameMatch
+      if (this.selectedGameId) {
+        gameMatch = this.games.filter(game => game.id === this.selectedGameId)[0]
+      }
+      return gameMatch ? gameMatch : {}
     },
   },
   methods: {
-    applySearchTerm() {
-      this.$emit('searchTermChanged', arguments[0])
+    handleGameCardClick(){
+      if(this.selectable){ this.selectedGameId = arguments[0] }
+    },
+    searchTermChanged() {
+      //filterGames(searchTerm);
+    },
+
+    fetchNewGamesList() {
+      igdb
+        .list(this.searchTerm, this.startYear, this.endYear, '*', this.orderBy)
+        .then(result => {
+          const x = result.map(element => igdb.get(element.id))
+          this.games = []
+          Promise.all(x).then(res => {
+            res.forEach(game => {
+              game.popularity = game.popularity
+                ? +parseFloat(game.popularity).toFixed(2)
+                : 0
+              this.games.push(game)
+            })
+          })
+        })
+      // console.log('Fetching list...')
+    },
+
+    applyFilter() {
+      clearTimeout(this.filterTimeout)
+      this.filterTimeout = setTimeout(this.fetchNewGamesList, 500)
     },
     applyYearFilter() {
-      this.$emit('yearFilterChanged', arguments[0])
+      this.startYear = arguments[0] ? arguments[0] + '-01-01' : ''
+      this.endYear = arguments[1] ? arguments[1] + '-12-31' : ''
+      this.applyFilter()
     },
     applySort() {
-      this.$emit('dropdownValueChanged', arguments[0])
+      let newSort = ''
+      if (arguments[0] === 'gameTitle') {
+        newSort = 'name:asc'
+      } else if (arguments[0] === 'releaseDate') {
+        newSort = 'release_dates.date:desc'
+      }
+      if (this.orderBy !== newSort) {
+        this.orderBy = newSort
+        this.applyFilter()
+      }
     },
-    emitGameSelectionChange() {
-      this.$emit('gameSelected', arguments[0])
+    applySearchTerm() {
+      this.searchTerm = arguments[0]
+      this.applyFilter()
     },
+    // filterGames(searchTerm) {
+    //   //filters the list of games
+    // },
   },
+  watch: {
+    selectedGameId: function() {
+      this.$emit('selectedGameChanged', this.selectedGameId, this.selectedGame)
+    }
+  }
 }
 </script>
 
