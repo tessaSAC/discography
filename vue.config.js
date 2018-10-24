@@ -9,6 +9,7 @@ module.exports = {
         data: '@import "@/styles/globals.scss";',
       },
     },
+    extract: false,
   },
 
   baseUrl: process.env.NODE_ENV === 'production' ? '/discography/' : '/',
